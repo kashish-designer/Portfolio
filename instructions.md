@@ -27,6 +27,17 @@
   - create a plan
   - create a design structure in md and ask for the review
 
+### COLOR PALETTE
+- use these colors
+
+| Name             | HEX     | RGB             |
+| ---------------- | ------- | --------------- |
+| Mountbatten Pink | #A37E84 | 163, 126, 132   |
+| Silver Pink      | #CDADAB | 205, 173, 171   |
+| Almond           | #EBD7CE | 235, 215, 206   |
+| Taupe Gray       | #917F88 | 145, 127, 136   |
+| Old Lavender     | #836871 | 131, 104, 113   |
+
 ### SECTIONS
 
 1. Hero Section
