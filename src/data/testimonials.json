@@ -1,0 +1,23 @@
+{
+  "heading": "What clients say",
+  "testimonials": [
+    {
+      "quote": "She rebuilt our product page around the one question customers kept emailing us about. The emails stopped.",
+      "name": "Priya Raghunathan",
+      "role": "Founder",
+      "company": "Fernbrook"
+    },
+    {
+      "quote": "We had a design system on paper and nothing in the theme. Kashish shipped both, and wrote down why every token existed so the next person would not have to ask.",
+      "name": "Tomas Lindqvist",
+      "role": "Head of Ecommerce",
+      "company": "Salt & Ash"
+    },
+    {
+      "quote": "She spent the first week reading our support tickets instead of opening Figma. Everything she designed after that was aimed at something real.",
+      "name": "Amara Diallo",
+      "role": "Operations Lead",
+      "company": "Postal Coffee"
+    }
+  ]
+}
