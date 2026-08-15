@@ -1,0 +1,35 @@
+{
+  "cue": "Selected work",
+  "projects": [
+    {
+      "slug": "fernbrook",
+      "client": "Fernbrook",
+      "year": "2026",
+      "role": "Product page and checkout redesign",
+      "image": {
+        "file": "work-fernbrook",
+        "alt": "Fernbrook product page — size selector and add-to-cart detail"
+      }
+    },
+    {
+      "slug": "salt-and-ash",
+      "client": "Salt & Ash",
+      "year": "2025",
+      "role": "Storefront design system",
+      "image": {
+        "file": "work-salt-ash",
+        "alt": "Salt & Ash storefront components — cards, buttons, and type scale"
+      }
+    },
+    {
+      "slug": "postal-coffee",
+      "client": "Postal Coffee",
+      "year": "2025",
+      "role": "Subscription flow and cart",
+      "image": {
+        "file": "work-postal",
+        "alt": "Postal Coffee subscription flow — plan selection and cart summary"
+      }
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "heading": "Certificates",
+  "note": "Credentials worth the time it took to earn them.",
+  "certificates": [
+    {
+      "year": "2026",
+      "name": "Accessible Interface Practice",
+      "issuer": "Northline Institute"
+    },
+    {
+      "year": "2025",
+      "name": "Design Systems Practitioner",
+      "issuer": "Kerning Council"
+    },
+    {
+      "year": "2024",
+      "name": "Research Methods for Ecommerce",
+      "issuer": "Fieldnote Academy"
+    }
+  ]
+}

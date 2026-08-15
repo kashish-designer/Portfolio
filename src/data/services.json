@@ -1,0 +1,26 @@
+{
+  "heading": "What I can be hired for",
+  "intro": "Four ways engagements usually start. Most turn into some combination of the four.",
+  "services": [
+    {
+      "name": "Storefront design",
+      "description": "End-to-end design for the buying path — collection, product, cart, checkout — across breakpoints, built to hand to a developer without a second conversation.",
+      "meta": "Project"
+    },
+    {
+      "name": "Design systems",
+      "description": "Components, tokens, and the documentation that keeps them honest, so the twentieth page still looks like the first one.",
+      "meta": "Project"
+    },
+    {
+      "name": "Conversion audits",
+      "description": "A structured teardown of an existing storefront, with findings ordered by what costs the most to leave alone.",
+      "meta": "Fixed scope"
+    },
+    {
+      "name": "Ongoing design",
+      "description": "Standing capacity for teams shipping continuously — campaign pages, new templates, and the small fixes that never reach a roadmap.",
+      "meta": "Retainer"
+    }
+  ]
+}

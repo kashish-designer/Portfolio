@@ -1,0 +1,36 @@
+{
+  "heading": "Technical skills",
+  "note": "Tools are the least interesting part of the job, but people ask.",
+  "groups": [
+    {
+      "label": "Design",
+      "items": [
+        "Figma",
+        "Interface design",
+        "Design systems",
+        "Responsive layout",
+        "Prototyping",
+        "Typography"
+      ]
+    },
+    {
+      "label": "Build & handoff",
+      "items": [
+        "Design tokens",
+        "Component specs",
+        "Shopify theme structure",
+        "Developer handoff",
+        "WCAG 2.2"
+      ]
+    },
+    {
+      "label": "Research",
+      "items": [
+        "Usability testing",
+        "Heuristic audits",
+        "Analytics review",
+        "A/B test design"
+      ]
+    }
+  ]
+}

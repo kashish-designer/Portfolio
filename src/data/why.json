@@ -1,0 +1,26 @@
+{
+  "heading": "Why work with me",
+  "lede": "Four things that tend to matter more than a portfolio does.",
+  "reasons": [
+    {
+      "title": "I design for the checkout, not the screenshot",
+      "body": "Every decision gets judged on whether it helps someone finish, not on how it photographs in a case study. Some of the best work I have done looks like nothing at all.",
+      "wide": true
+    },
+    {
+      "title": "Developers can actually build it",
+      "body": "States, edge cases, empty views, and error copy arrive with the design — not after the first review.",
+      "wide": false
+    },
+    {
+      "title": "I work inside your constraints",
+      "body": "Existing theme, existing stack, existing team. A redesign that requires replacing all three is a proposal, not a plan.",
+      "wide": false
+    },
+    {
+      "title": "You will know what changed and why",
+      "body": "Each delivery comes with the reasoning written down, so the decisions survive after I am gone and nobody has to guess what a screen was for.",
+      "wide": true
+    }
+  ]
+}
