@@ -1,0 +1,119 @@
+/* Hallmark · macrostructure: Marquee Hero · H1 hero knobs: size=xl, alignment=left-bias, underlay=single rule below
+ * theme: custom · vibe: "bone room, ink type, one rose signal" · paper: oklch(97.5% 0.005 20) · accent: oklch(52% 0.17 8)
+ * display: Cormorant Garamond 600 · body: Geist · outlier: Geist Mono
+ * axes: light / roman-serif / chromatic-dusty-rose · nav: N9 edge-aligned · genre: editorial · tone: soft
+ * studied: no · context: user-provided palette + tone, audience/use inferred · v1.1.0
+ * pre-emit critique: P4 H5 E4 S4 R5 V5
+ * contrast: pass (40–41) · nav: N9 · footer: pending · slop: pass (42–45)
+ * honest: pass (46) · chrome: pass (47) · tokens: pass (48) · responsive: pass (49)
+ * mobile: pass (34, 49, 50–57)
+ */
+
+/* Design tokens. Every colour, face, size, and easing on the site resolves here.
+   Nothing downstream may declare a raw colour or font-family value. */
+
+@theme {
+  /* ---- Colour -------------------------------------------------------------
+     "Bone & Ink". A hard-neutral room with pink as a signal, not a surface.
+     The brand hexes in instructions.md were all low-chroma mauves; used as
+     paper, ink, and accent together they read sweet rather than authored.
+     Here the room refuses to be pink — near-white bone, near-black ink — so
+     the one saturated rose reads as a decision. Every neutral still carries a
+     trace of rose chroma (0.005–0.014), so nothing is a dead grey.
+
+     Accent footprint stays under 5% of any viewport: links, focus rings,
+     hover states, one rule. Never a fill. */
+
+  --color-paper: oklch(97.5% 0.005 20); /* page ground — near-white bone */
+  --color-paper-2: oklch(95% 0.008 18); /* raised surface */
+  --color-paper-3: oklch(92% 0.012 15); /* faint blush — section bands */
+
+  --color-ink: oklch(17% 0.012 20); /* near-black — body + display text */
+  --color-ink-2: oklch(40% 0.014 18); /* secondary text */
+
+  --color-rule: oklch(85% 0.012 15); /* decorative hairlines */
+  --color-rule-2: oklch(90% 0.008 15); /* lighter hairline */
+  --color-muted: oklch(55% 0.014 15); /* taupe-grey — UI boundaries */
+  --color-neutral: oklch(70% 0.014 15); /* tints, surfaces */
+
+  --color-accent: oklch(52% 0.17 8); /* true rose — the only saturated value */
+  --color-accent-strong: oklch(45% 0.17 8); /* accent hover/active */
+  --color-accent-ink: oklch(97.5% 0.005 20); /* text on accent fill */
+  --color-focus: oklch(50% 0.21 8); /* focus ring only */
+
+  /* ---- Type ---------------------------------------------------------------
+     Display runs at weight 600 and never below 3rem: Cormorant's hairlines
+     disappear at light weights against a low-contrast palette. */
+
+  --font-display: var(--font-cormorant), Georgia, "Times New Roman", serif;
+  --font-body: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-outlier: var(--font-geist-mono), ui-monospace, monospace;
+
+  /* 1.25 major third, 16px base */
+  --text-xs: 0.64rem;
+  --text-sm: 0.8rem;
+  --text-base: 1rem;
+  --text-md: 1.25rem;
+  --text-lg: 1.5625rem;
+  --text-xl: 1.9531rem;
+  --text-2xl: 2.4414rem;
+  --text-3xl: 3.0518rem;
+  --text-4xl: 3.8147rem;
+  --text-display: clamp(3rem, 7.5vw, 5.5rem);
+  --text-display-s: clamp(2.5rem, 5.5vw, 3.8147rem);
+
+  /* ---- Space --------------------------------------------------------------
+     4pt scale, named by role. `gutter` is the page's horizontal breathing room. */
+
+  --spacing-3xs: 0.125rem;
+  --spacing-2xs: 0.25rem;
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 0.75rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2.5rem;
+  --spacing-2xl: 4rem;
+  --spacing-3xl: 6rem;
+  --spacing-4xl: 9rem;
+  --spacing-gutter: clamp(1.25rem, 5vw, 5rem);
+
+  /* ---- Motion -------------------------------------------------------------- */
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in: cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+  /* ---- Radius -------------------------------------------------------------- */
+
+  --radius-none: 0;
+  --radius-sm: 0.125rem;
+}
+
+:root {
+  /* Tokens outside Tailwind's theme namespaces. */
+
+  /* Hero scrim. Alpha is a modifier here, not a palette definition — these are
+     overlay values over photography. Weights are set so legibility holds
+     against a worst-case white photograph: 68% at the top (small nav text
+     needs 4.5:1), 80% at the bottom under the display and meta rows.
+     Written as literals rather than color-mix(): Lightning CSS drops
+     color-mix() when its arguments are var(), which silently kills the rule. */
+  --color-scrim-top: oklch(17% 0.012 20 / 0.68);
+  --color-scrim-mid: oklch(17% 0.012 20 / 0.74);
+  --color-scrim-base: oklch(17% 0.012 20 / 0.8);
+
+  --dur-micro: 120ms;
+  --dur-short: 220ms;
+  --dur-long: 420ms;
+
+  --rule-hair: 1px;
+  --rule-thick: 2px;
+
+  --z-base: 1;
+  --z-raised: 10;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-modal: 400;
+  --z-toast: 500;
+  --z-tooltip: 600;
+}

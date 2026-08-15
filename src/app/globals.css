@@ -1,26 +1,197 @@
 @import "tailwindcss";
+@import "../styles/tokens.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* Base layer. Colour and type values live in tokens.css — nothing here
+   declares a raw value. */
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html,
+body {
+  /* `clip`, not `hidden`: preserves position: sticky on descendants. */
+  overflow-x: clip;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Paper grain. Tier-A enrichment: an SVG turbulence filter, no image asset,
+   no network request. Gives the flat paper a printed texture at a weight you
+   feel rather than see. Capped well under the 0.15 opacity ceiling. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-base);
+  pointer-events: none;
+  opacity: 0.045;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='3' stitchTiles='stitch'/></filter><rect width='160' height='160' filter='url(%23g)'/></svg>");
+  background-size: 160px 160px;
+}
+
+/* Form controls.
+   Border-width never changes between states — state lives on border-colour,
+   background, and outline, so nothing shifts by a pixel when a field is
+   focused or errors. The resting `outline: 2px solid transparent` reserves the
+   focus ring's geometry for the same reason. Inputs and the submit button
+   share one 2.75rem (44px) base height. */
+.field {
+  width: 100%;
+  min-height: 2.75rem;
+  /* Padding-block is deliberately small: it lets min-height set the control's
+     size so every single-line field matches the submit button exactly. */
+  padding: var(--spacing-xs) var(--spacing-md);
+  line-height: 1.35;
+  border: 1px solid var(--color-muted);
+  border-radius: var(--radius-none);
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  font: inherit;
+  outline: 2px solid transparent;
+  outline-offset: 1px;
+  transition:
+    border-color var(--dur-micro) var(--ease-out),
+    background-color var(--dur-micro) var(--ease-out);
+}
+
+.field::placeholder {
+  color: var(--color-ink-2);
+}
+
+.field:hover {
+  border-color: var(--color-ink-2);
+}
+
+/* Focus rings appear instantly — the transition above never includes outline. */
+.field:focus-visible {
+  outline-color: var(--color-focus);
+}
+
+.field[aria-invalid="true"] {
+  border-color: var(--color-accent);
+}
+
+.field:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* Reserved slot: an appearing error must not push the form down. */
+.field-hint {
+  display: block;
+  min-height: 1lh;
+}
+
+.button-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.75rem;
+  padding-inline: var(--spacing-lg);
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius-none);
+  background-color: var(--color-accent);
+  color: var(--color-accent-ink);
+  font: inherit;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  transition:
+    background-color var(--dur-micro) var(--ease-out),
+    border-color var(--dur-micro) var(--ease-out),
+    transform var(--dur-micro) var(--ease-out);
+}
+
+.button-primary:hover:not(:disabled) {
+  background-color: var(--color-accent-strong);
+  border-color: var(--color-accent-strong);
+}
+
+.button-primary:focus-visible {
+  outline-color: var(--color-focus);
+}
+
+.button-primary:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.button-primary:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* Skill index. Separators are pseudo-elements inside each item, so a dot can
+   never wrap to the start of a line the way a standalone separator span does.
+   Line breaks happen between items only. */
+.skill-list {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: var(--spacing-sm);
+  row-gap: var(--spacing-2xs);
+}
+
+.skill-list > li:not(:last-child)::after {
+  content: "·";
+  margin-left: var(--spacing-sm);
+  color: var(--color-accent);
+}
+
+/* Hero scrim over the fold photograph. Weights live on the scrim tokens. */
+.hero-scrim {
+  background-image: linear-gradient(
+    to bottom,
+    var(--color-scrim-top),
+    var(--color-scrim-mid) 55%,
+    var(--color-scrim-base)
+  );
+}
+
+::selection {
+  background-color: var(--color-accent);
+  color: var(--color-accent-ink);
+}
+
+/* Focus rings appear instantly — never transitioned, never animated. */
+:focus-visible {
+  outline: var(--rule-thick) solid var(--color-focus);
+  outline-offset: 3px;
+}
+
+/* Page-load entrance. One orchestrated sequence, staggered by DOM index
+   through --i. Total stagger stays under 500ms. */
+.reveal {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: reveal var(--dur-long) var(--ease-out) forwards;
+  animation-delay: calc(var(--i, 0) * 90ms);
+}
+
+@keyframes reveal {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 150ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 150ms !important;
+  }
+
+  .reveal {
+    transform: none;
+    animation-delay: 0ms;
+  }
 }

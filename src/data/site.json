@@ -1,0 +1,9 @@
+{
+  "name": "Kashish",
+  "discipline": "UI/UX Design",
+  "title": "Kashish — Storefront UI/UX Design",
+  "description": "UI/UX designer specialising in storefront experiences — product pages, cart, and checkout for DTC brands.",
+  "nav": {
+    "cta": { "label": "Start a project", "href": "#contact" }
+  }
+}
