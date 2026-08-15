@@ -2,6 +2,7 @@ import Header from "@/components/layout/Header";
 import About from "@/components/sections/About";
 import Certificates from "@/components/sections/Certificates";
 import Contact from "@/components/sections/Contact";
+import Cta from "@/components/sections/Cta";
 import Hero from "@/components/sections/Hero";
 import Services from "@/components/sections/Services";
 import Skills from "@/components/sections/Skills";
@@ -28,6 +29,7 @@ export default function Home() {
         <Contact />
         <Writing />
         <Certificates />
+        <Cta />
       </main>
     </>
   );
