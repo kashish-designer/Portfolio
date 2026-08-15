@@ -1,5 +1,6 @@
 import Header from "@/components/layout/Header";
 import About from "@/components/sections/About";
+import Contact from "@/components/sections/Contact";
 import Hero from "@/components/sections/Hero";
 import Services from "@/components/sections/Services";
 import Skills from "@/components/sections/Skills";
@@ -22,6 +23,7 @@ export default function Home() {
         <Skills />
         <Why />
         <Testimonials />
+        <Contact />
       </main>
     </>
   );

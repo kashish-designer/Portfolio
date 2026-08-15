@@ -1,0 +1,25 @@
+{
+  "heading": "Tell me what you are building",
+  "lede": "The more specific you are, the more useful my first reply will be. If there is a deadline or a budget, say so — it saves us both a round.",
+  "fields": {
+    "name": { "label": "Name", "placeholder": "" },
+    "email": { "label": "Email", "placeholder": "" },
+    "projectType": {
+      "label": "What do you need",
+      "options": [
+        "A new storefront",
+        "A redesign of an existing one",
+        "An audit of what we have",
+        "Ongoing design support",
+        "Something else"
+      ]
+    },
+    "message": {
+      "label": "What are you working on",
+      "placeholder": "What you sell, where it is stuck, and when you would like it done."
+    }
+  },
+  "submit": "Send",
+  "sending": "Sending…",
+  "privacy": "Your details go to Kashish and nowhere else."
+}
