@@ -1,0 +1,27 @@
+{
+  "heading": "Writing",
+  "note": "Occasional notes on the parts of a storefront nobody photographs.",
+  "posts": [
+    {
+      "slug": "size-charts",
+      "title": "The size chart is a returns problem, not a design problem",
+      "date": "2026-06-18",
+      "dateLabel": "June 2026",
+      "excerpt": "Most size guides are written by whoever had the measurements, not by whoever answers the emails when the fit is wrong."
+    },
+    {
+      "slug": "cart-drawers",
+      "title": "Cart drawers hide the one number people want",
+      "date": "2026-04-02",
+      "dateLabel": "April 2026",
+      "excerpt": "Sliding the cart over the page keeps shoppers browsing, and keeps the total just far enough away to feel like a surprise at checkout."
+    },
+    {
+      "slug": "empty-states",
+      "title": "Nobody designs the empty search result",
+      "date": "2026-01-27",
+      "dateLabel": "January 2026",
+      "excerpt": "It is the screen a shopper sees at their most impatient, and usually the only one that was never opened in Figma."
+    }
+  ]
+}
