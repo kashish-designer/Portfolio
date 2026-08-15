@@ -1,5 +1,6 @@
 import Header from "@/components/layout/Header";
 import About from "@/components/sections/About";
+import Certificates from "@/components/sections/Certificates";
 import Contact from "@/components/sections/Contact";
 import Hero from "@/components/sections/Hero";
 import Services from "@/components/sections/Services";
@@ -26,6 +27,7 @@ export default function Home() {
         <Testimonials />
         <Contact />
         <Writing />
+        <Certificates />
       </main>
     </>
   );
