@@ -1,0 +1,11 @@
+{
+  "tagline": "Storefront design for brands that would rather be finished than admired.",
+  "links": [
+    { "label": "Work", "href": "#work" },
+    { "label": "Services", "href": "#services" },
+    { "label": "Writing", "href": "#writing" },
+    { "label": "Contact", "href": "#contact" }
+  ],
+  "social": [],
+  "colophon": "Set in Cormorant Garamond and Geist."
+}

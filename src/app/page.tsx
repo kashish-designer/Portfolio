@@ -1,3 +1,4 @@
+import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/Header";
 import About from "@/components/sections/About";
 import Certificates from "@/components/sections/Certificates";
@@ -31,6 +32,7 @@ export default function Home() {
         <Certificates />
         <Cta />
       </main>
+      <Footer />
     </>
   );
 }
