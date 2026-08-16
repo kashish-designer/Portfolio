@@ -57,7 +57,10 @@ export interface WorkContent {
   cue: string;
   heading: string;
   lede: string;
-  /** Closing line under the strip. */
+  /** Accessible names for the carousel controls. */
+  previousLabel: string;
+  nextLabel: string;
+  /** Closing line under the slider. */
   note: string;
   /** The featured-project block. `projectSlug` points at an entry in
    *  `projects` rather than repeating its image and alt text — one project,
@@ -68,9 +71,8 @@ export interface WorkContent {
     lede: string;
     projectSlug: string;
   };
-  /** Exactly three reads best: the strip centres the second and lets the outer
-   *  two run off both edges. More than three and the outer pair disappear
-   *  entirely at desktop widths. */
+  /** Rendered as a slider, so the list can grow past three without the layout
+   *  needing to change. */
   projects: {
     slug: string;
     client: string;

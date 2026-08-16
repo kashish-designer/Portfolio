@@ -298,7 +298,7 @@ body::before {
 /* Quote carousel track. The scrollbar is hidden because the paging buttons and
    the snap points already communicate that there is more — but the container
    stays a real scroll container, so swipe and keyboard arrows still work. */
-.quote-track {
+.carousel-track {
   scrollbar-width: none;
   /* Without this the snapport starts at the border box, so the first item's
      snap-start pulls it flush past the gutter — the track silently scrolls
@@ -307,13 +307,13 @@ body::before {
   scroll-padding-inline: var(--spacing-gutter);
 }
 
-.quote-track::-webkit-scrollbar {
+.carousel-track::-webkit-scrollbar {
   display: none;
 }
 
 /* The track is focusable so keyboard users can scroll it; it needs a visible
    ring like any other focusable thing. */
-.quote-track:focus-visible {
+.carousel-track:focus-visible {
   outline: var(--rule-thick) solid var(--color-focus);
   outline-offset: -2px;
 }

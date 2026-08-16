@@ -2,6 +2,8 @@
   "cue": "Selected work",
   "heading": "Recent Work",
   "lede": "A full storefront, a single page that was losing people, and the components holding the rest of it together.",
+  "previousLabel": "Previous project",
+  "nextLabel": "Next project",
   "note": "Every one of these started the same way — reading what customers were already telling the brand, then rebuilding the path around it.",
   "showcase": {
     "heading": "Showcasing my best work",

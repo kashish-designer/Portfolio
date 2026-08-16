@@ -1,26 +1,27 @@
 import Image from "next/image";
 
+import Carousel from "@/components/ui/Carousel";
 import { placeholderImage } from "@/config/placeholders";
 import workContent from "@/data/work.json";
 import type { WorkContent } from "@/types/content";
 
 const work: WorkContent = workContent;
 
-/** The strip centres this project and lets the other two bleed off the edges. */
-const FEATURED_INDEX = 1;
-
 /**
- * Bleeding project strip.
+ * Project slider.
  *
- * The row is pulled wider than the gutter on both sides, so the outer two
- * projects run off the edges and the middle one sits whole in the centre —
- * the reference's "there is more of this than fits" composition. The clipping
- * is done by the page's `overflow-x: clip`, not by a scroller: a horizontally
- * scrolling strip would hide two thirds of the work behind a gesture.
+ * Was a fixed three-across strip whose outer two projects bled off the edges.
+ * That composition only worked at exactly three projects — a fourth had
+ * nowhere to go. As a carousel the same "there is more than fits" read comes
+ * from the next card peeking past the right edge, and the list can grow.
  *
- * The centre project is landscape and the flanking two are portrait, which is
- * what gives the row its rhythm — three equal rectangles would just be the
- * card grid this replaced.
+ * Scroll behaviour and the pagers live in `Carousel`, shared with
+ * Testimonials, so this stays a server component.
+ *
+ * Cards are a uniform landscape ratio now. The old layout gave the middle
+ * project a wider frame to mark it as featured; in a scroller there is no
+ * fixed middle, so that emphasis would land on whichever card happened to
+ * stop in the centre.
  *
  * Nothing is a link: case-study pages don't exist, and a card that looks
  * clickable and goes nowhere is worse than one that plainly is not.
@@ -35,37 +36,32 @@ export default function Work() {
         <p className="mt-md max-w-[46ch] text-base text-ink-2">{work.lede}</p>
       </div>
 
-      <ul className="mt-3xl flex items-end justify-center gap-md sm:gap-lg lg:-mx-[8vw]">
-        {work.projects.map((project, index) => {
-          const featured = index === FEATURED_INDEX;
-
-          return (
+      <div className="mt-2xl">
+        <Carousel
+          label={work.heading}
+          previousLabel={work.previousLabel}
+          nextLabel={work.nextLabel}
+        >
+          {work.projects.map((project, index) => (
             <li
               key={project.slug}
-              className={`min-w-0 shrink-0 ${
-                featured ? "basis-[62%] lg:basis-[46%]" : "basis-[30%] lg:basis-[26%]"
-              }`}
+              className="min-w-0 shrink-0 basis-[84%] snap-start sm:basis-[56%] lg:basis-[44%]"
             >
-              {/* TODO: Replace with real project screenshots — landscape 1600×1000
-                  for the centre slot, portrait 900×1200 for the flanking two. */}
-              <div
-                className={`relative w-full overflow-hidden bg-paper-2 ${
-                  featured ? "aspect-[4/3]" : "aspect-[3/4]"
-                }`}
-              >
+              {/* TODO: Replace with real project screenshots, target size: 1600×1200 */}
+              <div className="relative aspect-[4/3] w-full overflow-hidden bg-paper-2">
                 <Image
                   src={placeholderImage(project.image.file)}
                   alt={project.image.alt}
                   fill
-                  // The strip sits just under the fold on a laptop; lazy here
-                  // means it pops in as soon as scrolling starts.
-                  loading={featured ? "eager" : "lazy"}
-                  sizes={featured ? "(min-width: 1024px) 46vw, 62vw" : "(min-width: 1024px) 26vw, 30vw"}
+                  // The slider sits just under the fold on a laptop; lazy on
+                  // the first card means it pops in as scrolling starts.
+                  loading={index === 0 ? "eager" : "lazy"}
+                  sizes="(min-width: 1024px) 44vw, (min-width: 640px) 56vw, 84vw"
                   className="object-cover"
                 />
               </div>
 
-              <div className="mt-sm flex flex-wrap items-baseline gap-x-sm gap-y-3xs">
+              <div className="mt-md flex flex-wrap items-baseline gap-x-sm gap-y-3xs border-t border-rule pt-sm">
                 <h3 className="text-base font-medium text-ink">
                   {project.client}
                 </h3>
@@ -75,11 +71,11 @@ export default function Work() {
                 <p className="w-full text-sm text-ink-2">{project.role}</p>
               </div>
             </li>
-          );
-        })}
-      </ul>
+          ))}
+        </Carousel>
+      </div>
 
-      <p className="mx-auto mt-3xl max-w-[62ch] px-gutter text-center text-base text-ink-2">
+      <p className="mx-auto mt-2xl max-w-[62ch] px-gutter text-center text-base text-ink-2">
         {work.note}
       </p>
     </section>
