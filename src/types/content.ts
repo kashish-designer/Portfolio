@@ -103,18 +103,35 @@ export interface AboutContent {
   }[];
 }
 
-/** PLACEHOLDER DATA — these credentials do not exist.
- *  The issuing bodies are deliberately FICTIONAL. Do not swap in real issuer
- *  names (Google, Coursera, NN/g, IDF) as placeholders: an invented credential
- *  from a real institution is a false claim about that institution, not an
- *  unfinished section. Replace with Kashish's actual credentials, or delete.
+/** Credentials — the merged Skills + Certificates section.
+ *
+ *  One JSON per section, per the architecture note in CLAUDE.md. These used to
+ *  be `skills.json` and `certificates.json` back when they were two sections;
+ *  the section merged, so the data did too.
+ *
+ *  PLACEHOLDER DATA, on two counts:
+ *
+ *  1. The skill list is plausible for the discipline but is not Kashish's own
+ *     inventory. Confirm before launch.
+ *  2. The certificates DO NOT EXIST and their issuing bodies are deliberately
+ *     FICTIONAL. Do not swap in real issuer names (Google, Coursera, NN/g,
+ *     IDF) as placeholders: an invented credential from a real institution is
+ *     a false claim about that institution, not an unfinished section.
+ *     Replace with Kashish's actual credentials, or delete the array.
  *
  *  Issuer logos were left out for the same reason — a logo wall is only worth
- *  building once the issuers are real. See assets.md § Brand logos for the
- *  Simple Icons approach when that time comes. */
-export interface CertificatesContent {
+ *  building once the issuers are real. */
+export interface CredentialsContent {
   heading: string;
   note: string;
+  /** Column labels. Small labels rather than headings: the section has one
+   *  poster heading, and two more would compete with it. */
+  skillsLabel: string;
+  certificatesLabel: string;
+  groups: {
+    label: string;
+    items: string[];
+  }[];
   certificates: {
     year: string;
     name: string;
@@ -122,10 +139,6 @@ export interface CertificatesContent {
   }[];
 }
 
-/** PLACEHOLDER DATA — these posts do not exist. Titles and excerpts are
- *  invented to size the layout. Entries are intentionally NOT links: there are
- *  no post pages, and a headline that looks clickable and goes nowhere is
- *  worse than one that plainly does not. Wire hrefs when posts exist. */
 export interface WritingContent {
   heading: string;
   note: string;
@@ -210,20 +223,6 @@ export interface TestimonialsContent {
     name: string;
     role: string;
     company: string;
-  }[];
-}
-
-/** PLACEHOLDER DATA — the skill list is plausible for the discipline but is
- *  not Kashish's own inventory. Confirm before launch.
- *
- *  Rendered by `Credentials`, alongside `CertificatesContent` — the two used
- *  to own a section each. */
-export interface SkillsContent {
-  heading: string;
-  note: string;
-  groups: {
-    label: string;
-    items: string[];
   }[];
 }
 
