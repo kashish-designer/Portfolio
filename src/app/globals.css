@@ -88,6 +88,16 @@ body::before {
   min-height: 1lh;
 }
 
+/* Field label. Was a mono small-caps line repeated inline on all four fields;
+   the mono outlier is a register for indexes, not a form voice, and four more
+   uses of it made the form read as a different page from the rest. */
+.field-label {
+  display: block;
+  margin-bottom: var(--spacing-2xs);
+  font-size: var(--text-sm);
+  color: var(--color-ink-2);
+}
+
 .button-primary {
   display: inline-flex;
   align-items: center;
@@ -322,7 +332,8 @@ body::before {
    blockquote carries the semantics, so it is aria-hidden in the markup. */
 .quote-mark {
   display: block;
-  font-family: var(--font-display);
+  font-family: var(--font-poster);
+  font-weight: 800;
   font-size: var(--text-3xl);
   line-height: 0.6;
   color: var(--color-accent);

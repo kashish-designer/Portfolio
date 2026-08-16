@@ -19,7 +19,7 @@ const cta: CtaContent = ctaContent;
 export default function Cta() {
   return (
     <section className="px-gutter pb-2xl pt-4xl">
-      <p className="min-w-0 max-w-[20ch] font-display text-3xl font-semibold leading-[1.05] tracking-[-0.02em] text-ink [overflow-wrap:anywhere] sm:text-4xl">
+      <p className="poster-heading min-w-0 max-w-[20ch] text-ink">
         {cta.line}
       </p>
 
