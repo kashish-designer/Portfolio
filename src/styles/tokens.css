@@ -1,8 +1,8 @@
 /* Hallmark · macrostructure: Marquee Hero → Portfolio Grid (hero re-fronted; below-fold sections unchanged this pass)
  * hero: H2 Split Diptych · knobs: ratio=7/5, right=portrait, divider=negative-space
  * theme: custom · vibe: "dusty rose room, charcoal type, a person in it" · paper: oklch(96.8% 0.014 28) · accent: oklch(50% 0.16 12)
- * display: Cormorant Garamond 600 · body: Geist · outlier: Geist Mono
- * axes: light / roman-serif / chromatic-dusty-rose · nav: N9 edge-aligned · genre: editorial · tone: soft
+ * poster/body: Geist (800 for display) · outlier: Geist Mono · no serif
+ * axes: light / grotesk-sans / chromatic-dusty-rose · nav: N9 edge-aligned · genre: editorial · tone: soft
  * studied: no · context: user-provided palette + tone, audience/use inferred · v1.1.0
  * pre-emit critique: P5 H5 E4 S5 R4 V4
  * contrast: pass (40–41, recomputed against the warmed palette) · nav: N9 · footer: Ft1 · slop: pass (42–45)
@@ -62,19 +62,18 @@
   --color-focus: oklch(48% 0.165 10); /* focus ring only — 0.165 is the sRGB ceiling here */
 
   /* ---- Type ---------------------------------------------------------------
-     Display runs at weight 600 and never below 3rem: Cormorant's hairlines
-     disappear at light weights against a low-contrast palette. */
+     Two families, three roles. There is no serif: Cormorant Garamond was the
+     display face until the redesign moved every heading to the poster face,
+     at which point it was a self-hosted family loaded for nothing. */
 
-  --font-display: var(--font-cormorant), Georgia, "Times New Roman", serif;
   --font-body: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-outlier: var(--font-geist-mono), ui-monospace, monospace;
 
-  /* Poster role. The reference design's character is heavy grotesk mass, which
-     Cormorant cannot carry — a serif at poster scale reads elegant, not loud.
-     This is the body face under a different name, always at weight 800: Geist
-     is loaded as a variable font, so 100–900 is already on the page and this
-     costs no extra request. Naming the role keeps components from each
-     deciding what "the big face" is. */
+  /* Poster role. The design's character is heavy grotesk mass — a serif at
+     poster scale reads elegant, not loud. This is the body face under a
+     different name, always at weight 800: Geist is loaded as a variable font,
+     so 100–900 is already on the page and this costs no extra request. Naming
+     the role keeps components from each deciding what "the big face" is. */
   --font-poster: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
 
   /* 1.25 major third, 16px base */
@@ -87,8 +86,6 @@
   --text-2xl: 2.4414rem;
   --text-3xl: 3.0518rem;
   --text-4xl: 3.8147rem;
-  --text-display: clamp(3rem, 7.5vw, 5.5rem);
-  --text-display-s: clamp(2.5rem, 5.5vw, 3.8147rem);
 
   /* Poster scale — the name filling the fold edge to edge. Sized by viewport
      width rather than the type scale, because the target is "as wide as the

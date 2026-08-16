@@ -31,19 +31,21 @@ Two JSON gotchas already hit here:
 
 ### Design tokens drive everything
 
-`src/styles/tokens.css` is the single source for colour, type, spacing, and easing. Tokens are declared inside Tailwind v4's `@theme`, which generates the utilities directly — `bg-paper-3`, `text-ink-2`, `font-display`, `pt-4xl` are project tokens, not Tailwind defaults. There is no `tailwind.config.js`; v4 is configured CSS-first.
+`src/styles/tokens.css` is the single source for colour, type, spacing, and easing. Tokens are declared inside Tailwind v4's `@theme`, which generates the utilities directly — `bg-paper-3`, `text-ink-2`, `font-poster`, `pt-4xl` are project tokens, not Tailwind defaults. There is no `tailwind.config.js`; v4 is configured CSS-first.
 
 Rules that are enforced by review, not by tooling:
 - No raw colour or `font-family` values outside `tokens.css`. If a value is needed, add a named token first.
-- Tokens outside Tailwind's namespaces (`--z-*`, `--dur-*`, `--rule-*`, `--color-scrim-*`) sit in the `:root` block below `@theme`.
+- Tokens outside Tailwind's namespaces (`--z-*`, `--dur-*`, `--rule-*`, `--color-wash-rose`) sit in the `:root` block below `@theme`.
 - **Lightning CSS silently drops `color-mix()` whose arguments are `var()`.** The rule vanishes from the stylesheet with no build error. Write the composed value as its own literal token instead — this is why `--color-wash-rose` is spelled out rather than mixed.
 - `--color-muted` fails 4.5:1 for small text on the blush band (`--color-paper-3`). Use `--color-ink-2` there.
 
-Verify contrast by computing it in the browser against the *effective* background, not by eye. For text over the hero photograph, sample the image's brightest pixels and composite the scrim alpha — the section's own background is transparent, so naive checks report false failures.
+Verify contrast by computing it, not by eye — convert OKLCH to linear sRGB and run the WCAG ratio. The palette's tight pairs (`--color-muted` on `--color-paper-3`, paper type on `--color-rose`) are close enough that eyeballing them is guesswork, and `--color-focus` sits at the sRGB gamut edge, so raising its chroma silently clips.
 
 ### Page composition
 
-`src/app/page.tsx` assembles ordered sections; each is a self-contained component in `src/components/sections/`. `Header` is absolutely positioned over the hero and renders in ink — the hero is a light split diptych, not the scrimmed photograph it used to be, so a bone header would vanish. Surfaces alternate paper / blush / ink to give the page rhythm, and section padding is deliberately uneven — no two adjacent sections share a padding pair.
+`src/app/page.tsx` assembles ordered sections; each is a self-contained component in `src/components/sections/`. `Header` is absolutely positioned over the hero and renders in ink, because the fold above the rose panel is paper.
+
+Sections are separated by hairline rules rather than by alternating fills — the reference layouts' rhythm device. Saturated surfaces are deliberately rationed: `--color-rose` appears exactly three times (hero panel, showcase mount, footer band) and everything else is paper or almond, so the colour lands where it means something. Adding a fourth rose band dilutes all three.
 
 Placeholder imagery resolves through `src/config/placeholders.ts` to files in `public/images/placeholders/`. They are local and grayscale on purpose: remote placeholder services rate-limited and returned 500s through the image optimiser, and arbitrary colour photography fights the palette. Swapping in real assets should be a change to that one module.
 
