@@ -1,5 +1,20 @@
 import Image from "next/image";
 
+/**
+ * Static import, not a path under `public/`.
+ *
+ * A file in `public/` is served at a fixed URL, so replacing it leaves the
+ * URL unchanged — and the optimiser answers with
+ * `Cache-Control: public, max-age=14400`. Swapping the portrait therefore
+ * showed returning visitors the previous shot for up to four hours, which is
+ * exactly what happened while iterating on this one.
+ *
+ * Importing it puts a content hash in the filename, so the URL changes
+ * whenever the bytes do and the stale copy can never be served. It also lets
+ * Next read the intrinsic dimensions at build time and generate the blur
+ * placeholder below.
+ */
+import portrait from "@/images/kash-portrait.jpeg";
 import heroContent from "@/data/hero.json";
 import siteContent from "@/data/site.json";
 import type { HeroContent, SiteContent } from "@/types/content";
@@ -57,22 +72,32 @@ export default function Hero() {
             {hero.headline}
           </p>
 
-          {/* The frame matches the file's own 4:5 ratio, so the portrait is not
-              cropped at its natural size. `max-h` still bites on short
-              viewports; the crop is centred there because her face sits near
-              the middle of the frame and anchoring to the top would cut it. */}
+          {/* Two regimes, because `aspect-[4/5]` and `max-h` disagree:
+
+              - Narrow viewports: the aspect wins, the box is 4:5, and since
+                the file is 1024x1097 (0.93) cover trims ~7% off each side —
+                the side table and the floor, not her.
+              - Desktop: the cap wins, the box comes out landscape, and cover
+                trims vertically instead. See `object-position` on the image. */}
           <div className="relative aspect-[4/5] max-h-[72dvh] w-full min-w-0 self-end lg:col-span-6 lg:col-start-4">
             <Image
-              src={hero.image.src}
+              src={portrait}
               alt={hero.image.alt}
               fill
+              // Free with the static import: Next derives it at build time.
+              placeholder="blur"
               priority
               // Explicit: `priority` alone did not emit fetchpriority or a
               // preload link in this Next version, and this is the LCP element.
               fetchPriority="high"
               loading="eager"
               sizes="(min-width: 1024px) 50vw, 100vw"
-              className="object-cover"
+              // Anchored near the top, not centred. `aspect-[4/5]` and
+              // `max-h` disagree at desktop: the cap wins, the box comes out
+              // landscape, and cover then trims vertically. Centred, that took
+              // ~80px off the top and cut her head off. At 12% the excess
+              // comes off the bottom — floor, not face.
+              className="object-cover object-[50%_12%]"
             />
           </div>
 

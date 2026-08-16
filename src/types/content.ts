@@ -31,11 +31,15 @@ export interface ImageSlot {
   alt: string;
 }
 
-/** A real, shipped image: `src` is a path under `public/`, not a placeholder
- *  key. As sections get their real assets they move from `ImageSlot` to this,
- *  and `src/config/placeholders.ts` can be deleted once none are left. */
-export interface ImageAsset {
-  src: string;
+/** Alt text for an image the component imports directly.
+ *
+ *  Real assets are `import`ed rather than referenced by a path under
+ *  `public/`, so Next puts a content hash in the URL and a replaced file can
+ *  never be served from cache. That means the path is code, not content — but
+ *  the alt text is still copy, so it stays here. Sections move from
+ *  `ImageSlot` to this as they get real assets, and
+ *  `src/config/placeholders.ts` can be deleted once none are left. */
+export interface ImageAlt {
   alt: string;
 }
 
@@ -56,8 +60,8 @@ export interface HeroContent {
    *  visible heading of its own and relies on this. */
   cue: string;
   /** Kashish's real portrait — the first section off the placeholders. The
-   *  frame is set to the file's own 4:5 ratio so nothing is cropped. */
-  image: ImageAsset;
+   *  file itself is imported by the component; only its alt text lives here. */
+  image: ImageAlt;
 }
 
 /** PLACEHOLDER DATA — clients, years, and roles below are invented for layout
