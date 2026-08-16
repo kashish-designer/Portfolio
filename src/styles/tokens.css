@@ -1,8 +1,8 @@
 /* Hallmark · macrostructure: Marquee Hero → Portfolio Grid (hero re-fronted; below-fold sections unchanged this pass)
  * hero: H2 Split Diptych · knobs: ratio=7/5, right=portrait, divider=negative-space
- * theme: custom · vibe: "dusty rose room, charcoal type, a person in it" · paper: oklch(96.8% 0.014 28) · accent: oklch(50% 0.16 12)
+ * theme: custom · vibe: "hot pink fold, charcoal type, a person in it" · paper: oklch(96.8% 0.014 28) · accent: oklch(50% 0.2 8.3)
  * poster/body: Geist (800 for display) · outlier: Geist Mono · no serif
- * axes: light / grotesk-sans / chromatic-dusty-rose · nav: N9 edge-aligned · genre: editorial · tone: soft
+ * axes: light / grotesk-sans / chromatic-pink · nav: N9 edge-aligned · genre: editorial · tone: soft
  * studied: no · context: user-provided palette + tone, audience/use inferred · v1.1.0
  * pre-emit critique: P5 H5 E4 S5 R4 V4
  * contrast: pass (40–41, recomputed against the warmed palette) · nav: N9 · footer: Ft1 · slop: pass (42–45)
@@ -15,26 +15,22 @@
 
 @theme {
   /* ---- Colour -------------------------------------------------------------
-     "Dusty Rose & Charcoal". The room is warm now, not neutral.
+     Warm near-neutrals under one saturated pink.
 
-     The first pass ("Bone & Ink") held the rose to 0.005–0.014 chroma so the
-     page would refuse to be pink. It succeeded so completely that the palette
-     read as a corporate near-white — the site felt like an agency's, not a
-     person's. The brand hexes in instructions.md were mauve on purpose
-     (Mountbatten Pink, Silver Pink, Almond); this pass puts them back.
+     The neutrals carry a trace of rose chroma so nothing reads as dead grey,
+     and the near-black ink is the anchor that stops the page going sweet.
 
-     Chroma on the neutrals is raised 3–4× so the blush is a surface you can
-     see, and the near-black ink stays as the anchor that keeps it from going
-     sweet — the charcoal + blush-nude + off-white pairing, not pink-on-pink.
-     Hue sits at 20–28°, between the brand's rose and its almond.
+     Every saturated value shares hue 8.3, at three lightnesses:
+       --color-hero       61%  the fold and the menu overlay
+       --color-hero-deep  52%  bands that carry running text
+       --color-accent     50%  links, focus, the submit button
+     They read as one colour at different depths. Earlier passes ran a mauve
+     at hue 16 next to a pink at hue 12, which read as a near-miss rather than
+     a decision.
 
-     Accent is still the only saturated value, but it is no longer forbidden
-     as a fill: the CTA band and primary button carry it. Footprint stays
-     under ~8% of any viewport.
-
-     Contrast was recomputed for every pair after the shift (OKLCH → linear
-     sRGB → WCAG), not eyeballed. `--color-muted` still misses 4.5:1 for small
-     text on `--color-paper-3` (4.07:1) — use `--color-ink-2` there. */
+     Contrast is computed (OKLCH → linear sRGB → WCAG), never eyeballed. Two
+     pairs are known to miss and are recorded where they live: `--color-muted`
+     on `--color-paper-3` (4.07:1), and paper type on `--color-hero` (3.83:1).
 
   --color-paper: oklch(96.8% 0.014 28); /* page ground — warm blush-white */
   --color-paper-2: oklch(94% 0.022 26); /* raised surface — almond */
@@ -48,18 +44,25 @@
   --color-muted: oklch(52% 0.024 20); /* taupe-rose — UI boundaries */
   --color-neutral: oklch(70% 0.026 22); /* tints, surfaces */
 
-  /* Poster panel. A mid-tone surface the palette did not have: `paper-3` is far
-     too light to knock paper-coloured type out of, and `accent` at full-bleed
-     is too saturated to sit under a portrait. This lands in the family of the
-     brand's Mountbatten Pink (#A37E84) but darker, so paper text clears
-     5.17:1 on it. Used for the hero panel and the footer band. */
-  --color-rose: oklch(52% 0.065 16);
-  --color-rose-ink: oklch(96.8% 0.014 28); /* text on the rose panel */
-  /* Hairline on the rose band. Spelled out as its own value rather than
-     `rose-ink` at an opacity: Tailwind's opacity modifier compiles to a
+  /* Text on either pink band. */
+  --color-hero-ink: oklch(96.8% 0.014 28);
+
+  /* Deep step of the same hue, for bands that carry running text.
+     #e92869 cannot: paper on it is 3.83:1, and the footer sets most of its
+     copy at `text-sm` with `opacity-80`, which lands at 3.26:1. At this step
+     the same copy measures 4.67:1 and full-strength paper 5.59:1.
+
+     Sharing hue 8.3 with `--color-hero` is the point — the page previously
+     ran two unrelated pinks (this slot was oklch(52% 0.065 16), a low-chroma
+     mauve at hue 16). Two lightness steps of one hue read as one colour;
+     two hues read as a mistake. */
+  --color-hero-deep: oklch(52% 0.2 8.3);
+
+  /* Hairline on the deep band. Spelled out as its own value rather than
+     `hero-ink` at an opacity: Tailwind's opacity modifier compiles to a
      color-mix() whose argument is a var(), and Lightning CSS drops exactly
      that, silently leaving no rule at all. */
-  --color-rose-rule: oklch(61% 0.055 16);
+  --color-hero-rule: oklch(63% 0.18 8.3);
 
   /* Hero fold surface — #e92869. Brighter and more saturated than anything
      else in the palette, and used only on the fold: the panel, the name above
@@ -76,10 +79,21 @@
        oklch(52% 0.065 16)  #895a5c  the muted --color-rose, paper 5.17:1 */
   --color-hero: oklch(61.3% 0.225 8.3);
 
-  --color-accent: oklch(50% 0.16 12); /* dusty rose — the only saturated value */
-  --color-accent-strong: oklch(43% 0.16 12); /* accent hover/active */
+  /* Accent, realigned to hue 8.3 so every pink on the page shares one hue. It
+     was oklch(50% 0.16 12), close enough to read as a near-miss against the
+     fold rather than a deliberate second colour.
+
+     It stays much darker than `--color-hero` on purpose: this one carries
+     link text, the submit button, and the focus ring, all of which need
+     4.5:1 on paper. The fold's brighter pink manages only 3.83:1 and could
+     not do this job.
+
+     Chroma is capped by the sRGB gamut at these lightnesses — 0.2 clips on
+     the hover and focus steps, hence 0.17 and 0.19. */
+  --color-accent: oklch(50% 0.2 8.3); /* paper 6.09:1 · blush 4.90:1 */
+  --color-accent-strong: oklch(43% 0.17 8.3); /* hover/active — paper 8.08:1 */
   --color-accent-ink: oklch(96.8% 0.014 28); /* text on accent fill */
-  --color-focus: oklch(48% 0.165 10); /* focus ring only — 0.165 is the sRGB ceiling here */
+  --color-focus: oklch(48% 0.19 8.3); /* focus ring only — paper 6.60:1 */
 
   /* ---- Type ---------------------------------------------------------------
      Two families, three roles. There is no serif: Cormorant Garamond was the
@@ -154,17 +168,6 @@
 
 :root {
   /* Tokens outside Tailwind's theme namespaces. */
-
-  /* Portrait wash. Alpha is a modifier here, not a palette definition — this
-     is an overlay value over photography. The placeholder photography is
-     grayscale; a light rose multiply pulls it into the palette instead of
-     leaving a cold grey rectangle in a warm room. No text sits on it, so this
-     carries no contrast obligation.
-
-     Written as a literal rather than color-mix(): Lightning CSS drops
-     color-mix() when its arguments are var(), which silently kills the rule
-     with no build error. Any composed value here must be spelled out. */
-  --color-wash-rose: oklch(50% 0.16 12 / 0.16);
 
   --dur-micro: 120ms;
   --dur-short: 220ms;

@@ -62,7 +62,7 @@ export default function Header() {
         <nav
           id="site-menu"
           aria-label="Main"
-          className="fixed inset-0 z-30 flex flex-col justify-center gap-md bg-rose px-gutter py-4xl"
+          className="fixed inset-0 z-30 flex flex-col justify-center gap-md bg-hero px-gutter py-4xl"
         >
           {site.nav.links.map((link) => (
             <Link

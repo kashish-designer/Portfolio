@@ -138,7 +138,7 @@ body::before {
   cursor: not-allowed;
 }
 
-/* Poster name — rose type on the paper, with the panel butting up to its
+/* Poster name — coloured type on the paper, with the panel butting up to its
    baseline.
 
    Established by sampling the reference rather than by eye, after two wrong
@@ -172,7 +172,7 @@ body::before {
   text-align: center;
 }
 
-/* The rose panel.
+/* The fold panel.
 
    Measured off the reference (617px render): the panel is inset 23px on both
    sides — 3.7% of the page, i.e. the gutter — and is NOT full-bleed. The name
@@ -210,7 +210,7 @@ body::before {
   font-weight: 800;
   line-height: 1.05;
   letter-spacing: -0.035em;
-  color: var(--color-rose-ink);
+  color: var(--color-hero-ink);
   overflow-wrap: anywhere;
   border-bottom: var(--rule-thick) solid transparent;
   outline: 2px solid transparent;
@@ -219,12 +219,12 @@ body::before {
 }
 
 .footer-contact:hover {
-  border-bottom-color: var(--color-rose-ink);
+  border-bottom-color: var(--color-hero-ink);
 }
 
 /* Focus rings appear instantly — never transitioned. */
 .footer-contact:focus-visible {
-  outline-color: var(--color-rose-ink);
+  outline-color: var(--color-hero-ink);
 }
 
 .footer-contact:active {
@@ -237,7 +237,7 @@ body::before {
   display: inline-flex;
   align-items: center;
   min-height: 2.75rem;
-  color: var(--color-rose-ink);
+  color: var(--color-hero-ink);
   text-decoration: underline;
   text-decoration-color: transparent;
   text-decoration-thickness: var(--rule-hair);
@@ -252,7 +252,7 @@ body::before {
 }
 
 .footer-link:focus-visible {
-  outline-color: var(--color-rose-ink);
+  outline-color: var(--color-hero-ink);
 }
 
 .footer-link:active {
@@ -268,9 +268,9 @@ body::before {
   width: 3.5rem;
   height: 3.5rem;
   flex: none;
-  border: var(--rule-hair) solid var(--color-rose-ink);
+  border: var(--rule-hair) solid var(--color-hero-ink);
   border-radius: 50%;
-  color: var(--color-rose-ink);
+  color: var(--color-hero-ink);
   outline: 2px solid transparent;
   outline-offset: 3px;
   transition:
@@ -279,12 +279,12 @@ body::before {
 }
 
 .back-to-top:hover {
-  background-color: var(--color-rose-ink);
-  color: var(--color-rose);
+  background-color: var(--color-hero-ink);
+  color: var(--color-hero);
 }
 
 .back-to-top:focus-visible {
-  outline-color: var(--color-rose-ink);
+  outline-color: var(--color-hero-ink);
 }
 
 .back-to-top:active {
@@ -307,7 +307,7 @@ body::before {
   font-weight: 800;
   line-height: 0.82;
   letter-spacing: -0.045em;
-  color: var(--color-rose-ink);
+  color: var(--color-hero-ink);
   white-space: nowrap;
   text-align: right;
 }
@@ -471,9 +471,9 @@ body::before {
 }
 
 [open] > .service-summary .service-marker {
-  border-color: var(--color-rose);
-  background-color: var(--color-rose);
-  color: var(--color-rose-ink);
+  border-color: var(--color-hero);
+  background-color: var(--color-hero);
+  color: var(--color-hero-ink);
 }
 
 [open] > .service-summary .service-marker::before {
@@ -534,8 +534,8 @@ body::before {
 }
 
 .menu-toggle[data-open="true"] {
-  border-color: var(--color-rose-ink);
-  color: var(--color-rose-ink);
+  border-color: var(--color-hero-ink);
+  color: var(--color-hero-ink);
 }
 
 .menu-toggle[data-open="true"] .menu-toggle__bars {
@@ -562,7 +562,7 @@ body::before {
 }
 
 .menu-toggle[data-open="true"]:focus-visible {
-  outline-color: var(--color-rose-ink);
+  outline-color: var(--color-hero-ink);
 }
 
 .menu-toggle:active {
@@ -586,7 +586,7 @@ body::before {
   font-weight: 800;
   line-height: 1.05;
   letter-spacing: -0.035em;
-  color: var(--color-rose-ink);
+  color: var(--color-hero-ink);
   outline: 2px solid transparent;
   outline-offset: 4px;
   overflow-wrap: anywhere;
@@ -598,7 +598,7 @@ body::before {
 }
 
 .menu-link:focus-visible {
-  outline-color: var(--color-rose-ink);
+  outline-color: var(--color-hero-ink);
 }
 
 .menu-link:active {
@@ -660,16 +660,14 @@ body::before {
   color: var(--color-accent);
 }
 
-/* Rose wash over the hero portrait. Ties grayscale placeholder photography to
-   the palette; harmless once a real colour portrait lands. */
-.portrait-wash {
-  background-color: var(--color-wash-rose);
-  mix-blend-mode: multiply;
-}
-
+/* Selection is charcoal, not pink.
+   It used to be `--color-accent`, which read as yet another pink competing
+   with the fold — and on the pink bands it was pink-on-pink, so a selection
+   was barely visible. Ink works on every surface the page has: 16.8:1 against
+   paper, and it is the one value that never collides with the fold. */
 ::selection {
-  background-color: var(--color-accent);
-  color: var(--color-accent-ink);
+  background-color: var(--color-ink);
+  color: var(--color-paper);
 }
 
 /* Focus rings appear instantly — never transitioned, never animated. */

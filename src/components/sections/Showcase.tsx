@@ -11,11 +11,11 @@ const featured = work.projects.find(
 );
 
 /**
- * Featured project, inset on a rose panel.
+ * Featured project, inset on a pink mount.
  *
  * The panel's margin around the screenshot is the whole device: it frames the
  * work the way a mount frames a print, and it is the second and last place the
- * mid-rose appears, which ties the bottom of the page back to the fold.
+ * pink appears, which ties the middle of the page back to the fold.
  *
  * The project is looked up by slug from `projects` rather than restated here,
  * so the showcase can never drift out of sync with the strip above it. An
@@ -36,7 +36,7 @@ export default function Showcase() {
         {work.showcase.lede}
       </p>
 
-      <figure className="mt-2xl bg-rose p-lg sm:p-2xl">
+      <figure className="mt-2xl bg-hero-deep p-lg sm:p-2xl">
         {/* TODO: Replace with the real case-study screenshot, target size: 1800×1200 */}
         <div className="relative aspect-[3/2] w-full min-w-0 overflow-hidden bg-paper-2">
           <Image
@@ -49,7 +49,7 @@ export default function Showcase() {
           />
         </div>
 
-        <figcaption className="mt-lg flex flex-wrap items-baseline gap-x-sm gap-y-3xs text-rose-ink">
+        <figcaption className="mt-lg flex flex-wrap items-baseline gap-x-sm gap-y-3xs text-hero-ink">
           <span className="text-base font-medium">{featured.client}</span>
           <span className="text-sm tabular-nums opacity-80">
             {featured.year}

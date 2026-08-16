@@ -8,9 +8,9 @@ const footer: FooterContent = footerContent;
 const site: SiteContent = siteContent;
 
 /**
- * Full rose band closing the page, with the name cropped by the bottom edge —
- * the reference footer. This is the third and last appearance of the mid-rose
- * (hero panel, showcase mount, here), so the colour brackets the page.
+ * Full pink band closing the page — the deep step of the fold colour, because
+ * this band carries running text that the brighter fold pink cannot support.
+ *
  *
  * The large affordance is a real `mailto:` when an address exists and a link
  * to the on-page form when it does not. See the OWNER-CONFIRM note on
@@ -26,7 +26,7 @@ export default function Footer() {
   const hasEmail = Boolean(footer.email);
 
   return (
-    <footer className="relative overflow-hidden bg-rose pt-4xl text-rose-ink">
+    <footer className="relative overflow-hidden bg-hero-deep pt-4xl text-hero-ink">
       <div className="grid gap-2xl px-gutter lg:grid-cols-12">
         <div className="min-w-0 lg:col-span-7">
           <p className="text-sm opacity-80">{footer.invitation}</p>
@@ -95,11 +95,11 @@ export default function Footer() {
 
       {/* Rule sits inside the gutter so it lines up with the page's other
           hairlines rather than running edge to edge. */}
-      <div className="mx-gutter mt-lg border-t border-rose-rule">
+      <div className="mx-gutter mt-lg border-t border-hero-rule">
         {/* Words are separate elements so the symbol can carry its own
             accessible name, which means the spaces between them come from the
             gap rather than from the text. */}
-        <p className="flex flex-wrap items-center justify-center gap-x-xs pb-lg pt-sm text-center text-sm text-rose-ink">
+        <p className="flex flex-wrap items-center justify-center gap-x-xs pb-lg pt-sm text-center text-sm text-hero-ink">
           <span className="opacity-80">{footer.credit.prefix}</span>
           <span role="img" aria-label={footer.credit.symbolLabel}>
             {footer.credit.symbol}

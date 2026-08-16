@@ -57,14 +57,14 @@ export default function Hero() {
         ) : null}
       </div>
 
-      {/* The fold is the one place `--color-hero` (#e92869) appears. The
-          showcase mount and the footer band are still on `--color-rose`, so
-          the page deliberately carries a bright pink at the top and a muted
-          one below.
+      {/* `--color-hero` (#e92869) is used here and on the menu overlay, and
+          nowhere else. The showcase mount and the footer band take
+          `--color-hero-deep` — same hue, darker — because both carry running
+          text this pink cannot support.
 
-          Paper type on this pink measures 3.83:1, so the headline and cue
-          inside the panel are under AA — see the contrast note on the token
-          for the darkened value that fixes it. */}
+          Paper type on it measures 3.83:1, so the headline and cue inside the
+          panel are under AA. That is a known, accepted trade for the fold;
+          see the contrast note on the token for the value that fixes it. */}
       <h1 className="poster-name px-gutter text-hero">{site.name}</h1>
 
       {/* Inset by the gutter so its edges line up with the name above it. No
