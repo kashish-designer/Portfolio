@@ -291,18 +291,25 @@ body::before {
   transform: translateY(1px);
 }
 
-/* The name again, cropped by the footer's bottom edge. Same trick as the hero
-   panel — the offset is derived from the type size so the two move together. */
+/* The name again, closing the footer band.
+
+   Measured off the reference: it is NOT cropped — 22px of band sits below it —
+   and it is right-aligned, ending a gutter's width from the edge with the
+   back-to-top control alone on the left. An earlier pass had it clipped by the
+   bottom edge and left-aligned; both were wrong.
+
+   Set one step down from the hero name (`--text-poster-footer`) so there is
+   room for it to sit right without colliding with the control. */
 .footer-wordmark {
   margin: 0;
-  margin-bottom: calc(var(--text-poster) * -0.22);
   font-family: var(--font-poster);
-  font-size: var(--text-poster);
+  font-size: var(--text-poster-footer);
   font-weight: 800;
   line-height: 0.82;
   letter-spacing: -0.045em;
   color: var(--color-rose-ink);
   white-space: nowrap;
+  text-align: right;
 }
 
 /* Quote carousel track. The scrollbar is hidden because the paging buttons and

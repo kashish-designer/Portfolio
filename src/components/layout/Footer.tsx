@@ -81,14 +81,15 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="mt-3xl flex items-end gap-lg px-gutter">
+      {/* The control sits alone on the left and the name closes hard right,
+          which is the reference's arrangement. The name is not cropped — see
+          `.footer-wordmark`. */}
+      <div className="mt-3xl flex items-end gap-lg px-gutter pb-xl">
         <a href="#top" className="back-to-top">
           <span className="sr-only">{footer.backToTopLabel}</span>
           <span aria-hidden="true">&uarr;</span>
         </a>
 
-        {/* Cropped by the footer's own overflow — the name runs off the bottom
-            edge rather than sitting neatly inside it. */}
         <p className="footer-wordmark min-w-0 flex-1">{site.name}</p>
       </div>
 

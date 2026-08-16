@@ -97,6 +97,11 @@
      longer or shorter name needs this re-tuned. */
   --text-poster: clamp(3.5rem, 24vw, 22rem);
   --text-poster-s: clamp(2.75rem, 9vw, 6.5rem);
+  /* Footer wordmark. Smaller than the hero name so it can sit right-aligned
+     with the back-to-top control beside it: measured off the reference, the
+     wordmark occupies about two thirds of the page width, not the full
+     measure. */
+  --text-poster-footer: clamp(2.5rem, 18vw, 16rem);
   /* Section heads in the poster voice — one step below the overlay menu. */
   --text-poster-heading: clamp(2.25rem, 5.5vw, 4rem);
 
