@@ -1,49 +1,75 @@
+import Image from "next/image";
+
+import { placeholderImage } from "@/config/placeholders";
 import servicesContent from "@/data/services.json";
 import type { ServicesContent } from "@/types/content";
 
 const services: ServicesContent = servicesContent;
 
 /**
- * F3 · Tabular spec sheet, under an S3 sticky-pinned head.
+ * Disclosure list — the reference's service accordion.
  *
- * The heading holds position in the left column while the rows scroll past it;
- * below 64rem it unsticks and stacks. Rows are separated by hairlines only —
- * no cards, no icon tiles, no three-column grid. A service list is text, and
- * icons here would be decoration standing in for information.
+ * Built on native `<details name="services">`. The shared `name` makes it an
+ * exclusive accordion at the HTML level, so opening one row closes the others
+ * with no state, no effect, and no client component. Keyboard operation, the
+ * expanded/collapsed semantics, and find-in-page all come for free; a hand-
+ * rolled version would reimplement them worse.
+ *
+ * Nothing animates open. Height and grid-template-rows are layout properties,
+ * and animating them is the jank this codebase avoids everywhere else — the
+ * panel's content fades instead.
+ *
+ * State coverage on the summary is default / hover / focus-visible / active /
+ * open. Disabled, loading, error, and success have no meaning for a
+ * disclosure: there is nothing to submit and nothing that can fail.
  */
 export default function Services() {
   return (
     <section
       id="services"
-      className="grid gap-xl px-gutter pt-3xl pb-4xl lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.6fr)] lg:gap-2xl"
+      className="border-b border-rule px-gutter pb-3xl pt-4xl"
     >
-      <div className="lg:sticky lg:top-xl lg:self-start">
-        <h2 className="max-w-[14ch] font-display text-2xl font-semibold leading-[1.08] tracking-[-0.02em] text-ink [overflow-wrap:anywhere] min-w-0 sm:text-3xl">
-          {services.heading}
-        </h2>
-        <p className="mt-lg max-w-[38ch] text-base text-ink-2">
-          {services.intro}
-        </p>
-      </div>
+      <h2 className="poster-heading min-w-0 max-w-[12ch] text-ink">
+        {services.heading}
+      </h2>
+      <p className="mt-md max-w-[42ch] text-base text-ink-2">{services.lede}</p>
 
-      <dl className="min-w-0">
-        {services.services.map((service) => (
-          <div
-            key={service.name}
-            className="grid gap-x-lg gap-y-2xs border-t border-rule py-lg sm:grid-cols-[minmax(0,1fr)_auto]"
+      <div className="mt-3xl">
+        {services.services.map((service, index) => (
+          <details
+            key={service.slug}
+            name="services"
+            open={index === 0}
+            className="service-row"
           >
-            <dt className="font-display text-md font-semibold text-ink">
-              {service.name}
-            </dt>
-            <dd className="font-outlier text-xs uppercase tracking-[0.14em] text-muted sm:col-start-2 sm:row-start-1 sm:text-right">
-              {service.meta}
-            </dd>
-            <dd className="max-w-[58ch] text-base text-ink-2 sm:col-start-1 sm:row-start-2">
-              {service.description}
-            </dd>
-          </div>
+            <summary className="service-summary">
+              <h3 className="poster-heading min-w-0 text-ink">
+                {service.name}
+              </h3>
+              <span className="service-marker" aria-hidden="true" />
+            </summary>
+
+            <div className="service-panel grid gap-lg pb-2xl lg:grid-cols-12 lg:gap-2xl">
+              <p className="max-w-[38ch] text-base leading-[1.6] text-ink-2 lg:col-span-4">
+                {service.description}
+              </p>
+
+              {/* TODO: Replace with real work from this engagement type,
+                  target size: 1200×900. Currently reusing project placeholders. */}
+              <div className="relative aspect-[4/3] w-full min-w-0 overflow-hidden bg-paper-2 lg:col-span-7 lg:col-start-6">
+                <Image
+                  src={placeholderImage(service.image.file)}
+                  alt={service.image.alt}
+                  fill
+                  loading="lazy"
+                  sizes="(min-width: 1024px) 58vw, 100vw"
+                  className="object-cover"
+                />
+              </div>
+            </div>
+          </details>
         ))}
-      </dl>
+      </div>
     </section>
   );
 }

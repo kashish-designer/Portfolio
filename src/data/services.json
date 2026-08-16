@@ -1,26 +1,42 @@
 {
-  "heading": "What I can be hired for",
-  "intro": "Four ways engagements usually start. Most turn into some combination of the four.",
+  "heading": "My Service",
+  "lede": "Four ways engagements usually start. Most turn into some combination of the four.",
   "services": [
     {
-      "name": "Storefront design",
+      "slug": "storefront-design",
+      "name": "Storefront Design",
       "description": "End-to-end design for the buying path — collection, product, cart, checkout — across breakpoints, built to hand to a developer without a second conversation.",
-      "meta": "Project"
+      "image": {
+        "file": "work-fernbrook",
+        "alt": "Storefront design work — product page layout across breakpoints"
+      }
     },
     {
-      "name": "Design systems",
+      "slug": "design-systems",
+      "name": "Design Systems",
       "description": "Components, tokens, and the documentation that keeps them honest, so the twentieth page still looks like the first one.",
-      "meta": "Project"
+      "image": {
+        "file": "work-salt-ash",
+        "alt": "Design system work — components, buttons, and type scale"
+      }
     },
     {
-      "name": "Conversion audits",
+      "slug": "conversion-audits",
+      "name": "Conversion Audits",
       "description": "A structured teardown of an existing storefront, with findings ordered by what costs the most to leave alone.",
-      "meta": "Fixed scope"
+      "image": {
+        "file": "work-postal",
+        "alt": "Conversion audit work — annotated checkout flow"
+      }
     },
     {
-      "name": "Ongoing design",
+      "slug": "ongoing-design",
+      "name": "Ongoing Design",
       "description": "Standing capacity for teams shipping continuously — campaign pages, new templates, and the small fixes that never reach a roadmap.",
-      "meta": "Retainer"
+      "image": {
+        "file": "hero-studio",
+        "alt": "Ongoing design work — campaign page layouts in progress"
+      }
     }
   ]
 }
