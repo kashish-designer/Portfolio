@@ -3,13 +3,23 @@
  * Each section owns one JSON file; this is the contract between the two.
  */
 
+export interface NavLink {
+  label: string;
+  href: string;
+}
+
 export interface SiteContent {
   name: string;
   discipline: string;
   title: string;
   description: string;
+  /** One list of section links, read by both `Header` and `Footer`. They used
+   *  to keep separate copies in site.json and footer.json, which drifted. */
   nav: {
-    cta: { label: string; href: string };
+    openLabel: string;
+    closeLabel: string;
+    links: NavLink[];
+    cta: NavLink;
   };
 }
 
@@ -22,10 +32,20 @@ export interface ImageSlot {
 }
 
 export interface HeroContent {
+  /** First person. Sits in the panel's left column, in the slot the reference
+   *  design gives a QR code — a statement earns that space, a QR to nowhere
+   *  does not. Keep it under ~50 characters. */
   headline: string;
-  /** Left meta row. Keep to three short tokens — it wraps below 400px. */
+  /** OWNER-CONFIRM — an availability claim, not a design string. It is true or
+   *  false depending on Kashish's actual capacity on any given week. Keep it
+   *  current or set it to an empty string, which hides it.
+   *  Never let it drift into a fabricated number ("2 slots left for Q4"). */
+  status: string;
+  /** The label row riding above the poster name. Three short tokens — more
+   *  than three and the row collides with the name below 400px. */
   tags: string[];
-  /** Right meta row. Scroll cue pointing at the work section below. */
+  /** Scroll cue pointing at the work section below — the Work section has no
+   *  visible heading of its own and relies on this. */
   cue: string;
   image: ImageSlot;
 }
@@ -33,7 +53,24 @@ export interface HeroContent {
 /** PLACEHOLDER DATA — clients, years, and roles below are invented for layout
  *  purposes and must be replaced with Kashish's real projects before launch. */
 export interface WorkContent {
+  /** Scroll cue rendered by the hero, which introduces this section. */
   cue: string;
+  heading: string;
+  lede: string;
+  /** Closing line under the strip. */
+  note: string;
+  /** The featured-project block. `projectSlug` points at an entry in
+   *  `projects` rather than repeating its image and alt text — one project,
+   *  one definition. A slug with no match renders nothing rather than
+   *  crashing the page. */
+  showcase: {
+    heading: string;
+    lede: string;
+    projectSlug: string;
+  };
+  /** Exactly three reads best: the strip centres the second and lets the outer
+   *  two run off both edges. More than three and the outer pair disappear
+   *  entirely at desktop widths. */
   projects: {
     slug: string;
     client: string;
@@ -46,6 +83,17 @@ export interface WorkContent {
 export interface AboutContent {
   heading: string;
   body: string[];
+  /** OWNER-CONFIRM — every `figure` ships EMPTY on purpose and renders as an
+   *  em-dash. The reference design fills this strip with 10+ / 280+ / 50+;
+   *  those are that designer's numbers, and inventing equivalents for Kashish
+   *  would be a fabricated metric on the most quotable part of the page.
+   *
+   *  Fill in her real counts, or delete the array — an empty array hides the
+   *  strip. Do not seed it with plausible-looking figures. */
+  stats: {
+    figure: string;
+    label: string;
+  }[];
 }
 
 /** PLACEHOLDER DATA — these credentials do not exist.
@@ -82,6 +130,7 @@ export interface WritingContent {
     /** Human-readable label rendered to the page. */
     dateLabel: string;
     excerpt: string;
+    image: ImageSlot;
   }[];
 }
 
@@ -89,12 +138,25 @@ export interface WritingContent {
  *  `social` is intentionally EMPTY. Placeholder social URLs are worse than
  *  absent ones — a guessed handle can point a visitor at a stranger's profile.
  *  Add real URLs and they render automatically; leave it empty and the row is
- *  omitted rather than rendering dead links. */
+ *  omitted rather than rendering dead links.
+ *
+ *  Section links are NOT here — the footer reads `site.nav.links`, the same
+ *  list the header uses. Two copies drifted apart once already. */
 export interface FooterContent {
+  /** Small line above the large contact affordance. */
+  invitation: string;
+  /** OWNER-CONFIRM — Kashish's real address, or an empty string.
+   *
+   *  Empty renders `fallback` as a link to the on-page form instead. Do NOT
+   *  invent one to fill the slot: an invented address is either a dead
+   *  `mailto:` or, worse, a live one belonging to a stranger. */
+  email: string;
+  /** Shown in place of the email when `email` is empty. */
+  fallback: NavLink;
   tagline: string;
-  links: { label: string; href: string }[];
-  social: { label: string; href: string }[];
+  social: NavLink[];
   colophon: string;
+  backToTopLabel: string;
 }
 
 /** Closing CTA. `href` points at the on-page contact form — instructions.md
@@ -127,6 +189,15 @@ export interface ContactContent {
  *  before launch — an absent testimonials section beats a fake one. */
 export interface TestimonialsContent {
   heading: string;
+  lede: string;
+  /** Accessible names for the carousel controls. */
+  previousLabel: string;
+  nextLabel: string;
+  /** No portrait field, deliberately. The reference design pairs each quote
+   *  with a photograph of the person; pairing an INVENTED name and company
+   *  with a stock stranger's face turns unfinished content into a picture of a
+   *  real person endorsing work they have never seen. Add portraits only
+   *  alongside real, permissioned quotes. */
   testimonials: {
     quote: string;
     name: string;
@@ -135,22 +206,11 @@ export interface TestimonialsContent {
   }[];
 }
 
-/** PLACEHOLDER DATA — these are claims about how Kashish works, written to be
- *  plausible and to carry no invented metric. She must confirm each one is
- *  true of her before launch. */
-export interface WhyContent {
-  heading: string;
-  lede: string;
-  reasons: {
-    title: string;
-    body: string;
-    /** Grid emphasis — true spans two columns at ≥64rem, false spans one. */
-    wide: boolean;
-  }[];
-}
-
 /** PLACEHOLDER DATA — the skill list is plausible for the discipline but is
- *  not Kashish's own inventory. Confirm before launch. */
+ *  not Kashish's own inventory. Confirm before launch.
+ *
+ *  Rendered by `Credentials`, alongside `CertificatesContent` — the two used
+ *  to own a section each. */
 export interface SkillsContent {
   heading: string;
   note: string;
@@ -160,15 +220,22 @@ export interface SkillsContent {
   }[];
 }
 
-/** PLACEHOLDER DATA — engagement types below are plausible for the discipline
- *  but are not Kashish's stated offering. Confirm before launch. */
+/** PLACEHOLDER DATA — the engagements below are plausible for the discipline
+ *  but are not Kashish's stated offering. Confirm before launch.
+ *
+ *  There is deliberately no per-item pricing label. An earlier version tagged
+ *  each row Project / Fixed scope / Retainer, which is how a studio prices
+ *  itself and read as the clearest agency tell in the copy. Do not reintroduce
+ *  it.
+ *
+ *  The first entry renders open; the rest are collapsed. Order accordingly. */
 export interface ServicesContent {
   heading: string;
-  intro: string;
+  lede: string;
   services: {
+    slug: string;
     name: string;
     description: string;
-    /** Engagement shape — Project, Retainer, Fixed scope. */
-    meta: string;
+    image: ImageSlot;
   }[];
 }
