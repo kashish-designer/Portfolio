@@ -83,13 +83,18 @@ export interface WorkContent {
 export interface AboutContent {
   heading: string;
   body: string[];
-  /** OWNER-CONFIRM — every `figure` ships EMPTY on purpose and renders as an
-   *  em-dash. The reference design fills this strip with 10+ / 280+ / 50+;
-   *  those are that designer's numbers, and inventing equivalents for Kashish
-   *  would be a fabricated metric on the most quotable part of the page.
+  /** FABRICATED DATA — MUST BE REPLACED BEFORE LAUNCH.
    *
-   *  Fill in her real counts, or delete the array — an empty array hides the
-   *  strip. Do not seed it with plausible-looking figures. */
+   *  The figures currently in about.json (6+ / 40+ / 20+) are placeholders
+   *  requested to fill the layout. Nobody counted them; they are not Kashish's
+   *  numbers. They sit on the most quotable part of the page, and a visitor,
+   *  a journalist, or a prospective client has no way to tell them from real
+   *  ones — which is what makes an invented metric different from an
+   *  unfinished section.
+   *
+   *  Replace with her real counts before this goes public, or empty each
+   *  `figure` (they then render as an em-dash), or delete the array entirely
+   *  (an empty array hides the strip). */
   stats: {
     figure: string;
     label: string;
