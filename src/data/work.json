@@ -1,5 +1,13 @@
 {
   "cue": "Selected work",
+  "heading": "Recent Work",
+  "lede": "A full storefront, a single page that was losing people, and the components holding the rest of it together.",
+  "note": "Every one of these started the same way — reading what customers were already telling the brand, then rebuilding the path around it.",
+  "showcase": {
+    "heading": "Showcasing my best work",
+    "lede": "One storefront, start to finish — the collection page, the product page, and the checkout that finally stopped losing people at the last step.",
+    "projectSlug": "fernbrook"
+  },
   "projects": [
     {
       "slug": "fernbrook",
