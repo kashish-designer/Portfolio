@@ -1,11 +1,17 @@
 {
+  "invitation": "I'm excited to hear from you",
+  "email": "",
+  "fallback": { "label": "Tell me what you're building", "href": "#contact" },
   "tagline": "Storefront design for brands that would rather be finished than admired.",
-  "links": [
-    { "label": "Work", "href": "#work" },
-    { "label": "Services", "href": "#services" },
-    { "label": "Writing", "href": "#writing" },
-    { "label": "Contact", "href": "#contact" }
-  ],
   "social": [],
-  "colophon": "Set in Cormorant Garamond and Geist."
+  "colophon": "Set in Geist.",
+  "credit": {
+    "prefix": "Developed with",
+    "symbol": "❤️",
+    "symbolLabel": "love",
+    "connector": "by",
+    "label": "Aneesh Lalwani",
+    "href": "https://www.aneeshlalwani.me/"
+  },
+  "backToTopLabel": "Back to top"
 }

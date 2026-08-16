@@ -1,16 +1,19 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
 import site from "@/data/site.json";
 
-const cormorant = Cormorant_Garamond({
-  variable: "--font-cormorant",
-  subsets: ["latin"],
-  weight: ["400", "600"],
-  display: "swap",
-});
-
+/**
+ * Two families, both Geist: the sans carries body copy and — at weight 800 —
+ * every poster heading, and the mono is the outlier register for indexes and
+ * labels.
+ *
+ * Cormorant Garamond used to be the display face. The redesign moved every
+ * heading to the poster face, and the last three serif holdouts (the closing
+ * CTA, the contact heading, the quote mark) went with it, leaving a self-
+ * hosted family loaded for nothing.
+ */
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -36,7 +39,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${cormorant.variable} ${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>

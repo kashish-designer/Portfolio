@@ -1,10 +1,11 @@
-/* Hallmark · macrostructure: Marquee Hero · H1 hero knobs: size=xl, alignment=left-bias, underlay=single rule below
- * theme: custom · vibe: "bone room, ink type, one rose signal" · paper: oklch(97.5% 0.005 20) · accent: oklch(52% 0.17 8)
- * display: Cormorant Garamond 600 · body: Geist · outlier: Geist Mono
- * axes: light / roman-serif / chromatic-dusty-rose · nav: N9 edge-aligned · genre: editorial · tone: soft
+/* Hallmark · macrostructure: Marquee Hero → Portfolio Grid (hero re-fronted; below-fold sections unchanged this pass)
+ * hero: H2 Split Diptych · knobs: ratio=7/5, right=portrait, divider=negative-space
+ * theme: custom · vibe: "hot pink fold, charcoal type, a person in it" · paper: oklch(96.8% 0.014 28) · accent: oklch(50% 0.2 8.3)
+ * poster/body: Geist (800 for display) · outlier: Geist Mono · no serif
+ * axes: light / grotesk-sans / chromatic-pink · nav: N9 edge-aligned · genre: editorial · tone: soft
  * studied: no · context: user-provided palette + tone, audience/use inferred · v1.1.0
- * pre-emit critique: P4 H5 E4 S4 R5 V5
- * contrast: pass (40–41) · nav: N9 · footer: pending · slop: pass (42–45)
+ * pre-emit critique: P5 H5 E4 S5 R4 V4
+ * contrast: pass (40–41, recomputed against the warmed palette) · nav: N9 · footer: Ft1 · slop: pass (42–45)
  * honest: pass (46) · chrome: pass (47) · tokens: pass (48) · responsive: pass (49)
  * mobile: pass (34, 49, 50–57)
  */
@@ -14,40 +15,105 @@
 
 @theme {
   /* ---- Colour -------------------------------------------------------------
-     "Bone & Ink". A hard-neutral room with pink as a signal, not a surface.
-     The brand hexes in instructions.md were all low-chroma mauves; used as
-     paper, ink, and accent together they read sweet rather than authored.
-     Here the room refuses to be pink — near-white bone, near-black ink — so
-     the one saturated rose reads as a decision. Every neutral still carries a
-     trace of rose chroma (0.005–0.014), so nothing is a dead grey.
+     Warm near-neutrals under one saturated pink.
 
-     Accent footprint stays under 5% of any viewport: links, focus rings,
-     hover states, one rule. Never a fill. */
+     The neutrals carry a trace of rose chroma so nothing reads as dead grey,
+     and the near-black ink is the anchor that stops the page going sweet.
 
-  --color-paper: oklch(97.5% 0.005 20); /* page ground — near-white bone */
-  --color-paper-2: oklch(95% 0.008 18); /* raised surface */
-  --color-paper-3: oklch(92% 0.012 15); /* faint blush — section bands */
+     Every saturated value shares hue 8.3, at three lightnesses:
+       --color-hero       61%  the fold and the menu overlay
+       --color-hero-deep  52%  bands that carry running text
+       --color-accent     50%  links, focus, the submit button
+     They read as one colour at different depths. Earlier passes ran a mauve
+     at hue 16 next to a pink at hue 12, which read as a near-miss rather than
+     a decision.
 
-  --color-ink: oklch(17% 0.012 20); /* near-black — body + display text */
-  --color-ink-2: oklch(40% 0.014 18); /* secondary text */
+     Contrast is computed (OKLCH → linear sRGB → WCAG), never eyeballed. Two
+     pairs are known to miss and are recorded where they live: `--color-muted`
+     on `--color-paper-3` (4.07:1), and paper type on `--color-hero` (3.83:1).
 
-  --color-rule: oklch(85% 0.012 15); /* decorative hairlines */
-  --color-rule-2: oklch(90% 0.008 15); /* lighter hairline */
-  --color-muted: oklch(55% 0.014 15); /* taupe-grey — UI boundaries */
-  --color-neutral: oklch(70% 0.014 15); /* tints, surfaces */
+  --color-paper: oklch(96.8% 0.014 28); /* page ground — warm blush-white */
+  --color-paper-2: oklch(94% 0.022 26); /* raised surface — almond */
+  --color-paper-3: oklch(90% 0.042 22); /* dusty rose — section bands */
 
-  --color-accent: oklch(52% 0.17 8); /* true rose — the only saturated value */
-  --color-accent-strong: oklch(45% 0.17 8); /* accent hover/active */
-  --color-accent-ink: oklch(97.5% 0.005 20); /* text on accent fill */
-  --color-focus: oklch(50% 0.21 8); /* focus ring only */
+  --color-ink: oklch(19% 0.018 22); /* charcoal, rose undertone — body + display */
+  --color-ink-2: oklch(41% 0.022 20); /* secondary text */
+
+  --color-rule: oklch(83% 0.028 22); /* decorative hairlines */
+  --color-rule-2: oklch(88% 0.02 22); /* lighter hairline */
+  --color-muted: oklch(52% 0.024 20); /* taupe-rose — UI boundaries */
+  --color-neutral: oklch(70% 0.026 22); /* tints, surfaces */
+
+  /* Text on either pink band. */
+  --color-hero-ink: oklch(96.8% 0.014 28);
+
+  /* Deep step of the same hue, for bands that carry running text. #e92869
+     cannot: paper on it is only 3.83:1.
+
+     Held as close to the fold as contrast allows — 55% against the fold's
+     61%, so the two bands read as the same pink rather than two. Paper text
+     lands at 4.91:1 here, just over the line, which is why secondary copy on
+     these bands runs at `opacity-90` (4.52:1) and not the `opacity-80` used
+     on paper surfaces: 80% would drop it to 4.13:1 and fail. Going darker
+     would buy headroom at the cost of the match.
+
+     Sharing hue 8.3 with `--color-hero` is the point — the page previously
+     ran two unrelated pinks (this slot was oklch(52% 0.065 16), a low-chroma
+     mauve at hue 16). Two lightness steps of one hue read as one colour;
+     two hues read as a mistake. */
+  --color-hero-deep: oklch(55% 0.2 8.3);
+
+  /* Hairline on the deep band. Spelled out as its own value rather than
+     `hero-ink` at an opacity: Tailwind's opacity modifier compiles to a
+     color-mix() whose argument is a var(), and Lightning CSS drops exactly
+     that, silently leaving no rule at all. */
+  --color-hero-rule: oklch(63% 0.18 8.3);
+
+  /* Hero fold surface — #e92869. Brighter and more saturated than anything
+     else in the palette, and used only on the fold: the panel, the name above
+     it, and nothing else.
+
+     CONTRAST: paper type measures 3.83:1 here, under the 4.5:1 that the
+     panel's headline (20px) and scroll cue (10px caps) need. The name itself
+     is fine — poster scale counts as large text, where 3:1 is the bar.
+     Darkening to oklch(55% 0.2 8.3) (~#c8285b) reaches 4.91:1 and keeps the
+     hue, if the panel copy should pass AA.
+
+     Previous values, kept in case this needs to go back:
+       oklch(50% 0.16 12)   #aa2e4a  same as --color-accent, paper 5.95:1
+       oklch(52% 0.065 16)  #895a5c  the muted --color-rose, paper 5.17:1 */
+  --color-hero: oklch(61.3% 0.225 8.3);
+
+  /* Accent, realigned to hue 8.3 so every pink on the page shares one hue. It
+     was oklch(50% 0.16 12), close enough to read as a near-miss against the
+     fold rather than a deliberate second colour.
+
+     It stays much darker than `--color-hero` on purpose: this one carries
+     link text, the submit button, and the focus ring, all of which need
+     4.5:1 on paper. The fold's brighter pink manages only 3.83:1 and could
+     not do this job.
+
+     Chroma is capped by the sRGB gamut at these lightnesses — 0.2 clips on
+     the hover and focus steps, hence 0.17 and 0.19. */
+  --color-accent: oklch(50% 0.2 8.3); /* paper 6.09:1 · blush 4.90:1 */
+  --color-accent-strong: oklch(43% 0.17 8.3); /* hover/active — paper 8.08:1 */
+  --color-accent-ink: oklch(96.8% 0.014 28); /* text on accent fill */
+  --color-focus: oklch(48% 0.19 8.3); /* focus ring only — paper 6.60:1 */
 
   /* ---- Type ---------------------------------------------------------------
-     Display runs at weight 600 and never below 3rem: Cormorant's hairlines
-     disappear at light weights against a low-contrast palette. */
+     Two families, three roles. There is no serif: Cormorant Garamond was the
+     display face until the redesign moved every heading to the poster face,
+     at which point it was a self-hosted family loaded for nothing. */
 
-  --font-display: var(--font-cormorant), Georgia, "Times New Roman", serif;
   --font-body: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-outlier: var(--font-geist-mono), ui-monospace, monospace;
+
+  /* Poster role. The design's character is heavy grotesk mass — a serif at
+     poster scale reads elegant, not loud. This is the body face under a
+     different name, always at weight 800: Geist is loaded as a variable font,
+     so 100–900 is already on the page and this costs no extra request. Naming
+     the role keeps components from each deciding what "the big face" is. */
+  --font-poster: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
 
   /* 1.25 major third, 16px base */
   --text-xs: 0.64rem;
@@ -59,8 +125,24 @@
   --text-2xl: 2.4414rem;
   --text-3xl: 3.0518rem;
   --text-4xl: 3.8147rem;
-  --text-display: clamp(3rem, 7.5vw, 5.5rem);
-  --text-display-s: clamp(2.5rem, 5.5vw, 3.8147rem);
+
+  /* Poster scale — the name filling the fold edge to edge. Sized by viewport
+     width rather than the type scale, because the target is "as wide as the
+     gutter allows", not a step on a ladder. */
+  /* 24vw fills the gutter measure at desktop for a 7-character name: Geist
+     ExtraBold averages ~0.58em per glyph, less 0.045em of tracking. Held one
+     step under the exact fit on purpose — see `.poster-name`, which refuses to
+     wrap, so overshooting clips the name rather than reflowing it. A markedly
+     longer or shorter name needs this re-tuned. */
+  --text-poster: clamp(3.5rem, 24vw, 22rem);
+  --text-poster-s: clamp(2.75rem, 9vw, 6.5rem);
+  /* Footer wordmark. Smaller than the hero name so it can sit right-aligned
+     with the back-to-top control beside it: measured off the reference, the
+     wordmark occupies about two thirds of the page width, not the full
+     measure. */
+  --text-poster-footer: clamp(2.5rem, 18vw, 16rem);
+  /* Section heads in the poster voice — one step below the overlay menu. */
+  --text-poster-heading: clamp(2.25rem, 5.5vw, 4rem);
 
   /* ---- Space --------------------------------------------------------------
      4pt scale, named by role. `gutter` is the page's horizontal breathing room. */
@@ -91,16 +173,6 @@
 
 :root {
   /* Tokens outside Tailwind's theme namespaces. */
-
-  /* Hero scrim. Alpha is a modifier here, not a palette definition — these are
-     overlay values over photography. Weights are set so legibility holds
-     against a worst-case white photograph: 68% at the top (small nav text
-     needs 4.5:1), 80% at the bottom under the display and meta rows.
-     Written as literals rather than color-mix(): Lightning CSS drops
-     color-mix() when its arguments are var(), which silently kills the rule. */
-  --color-scrim-top: oklch(17% 0.012 20 / 0.68);
-  --color-scrim-mid: oklch(17% 0.012 20 / 0.74);
-  --color-scrim-base: oklch(17% 0.012 20 / 0.8);
 
   --dur-micro: 120ms;
   --dur-short: 220ms;

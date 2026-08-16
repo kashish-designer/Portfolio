@@ -1,6 +1,18 @@
 [
   {
     "date": "2026-08-15",
+    "macrostructure": "Portfolio Grid",
+    "theme": "custom",
+    "theme_axes": "light / roman-serif / chromatic-dusty-rose",
+    "vibe": "dusty rose room, charcoal type, a person in it",
+    "nav": "N9 edge-aligned minimal",
+    "hero": "H2 split diptych (ratio=7/5, right=portrait, divider=negative-space)",
+    "enrichment": "portrait slot + rose wash + paper grain (Tier A)",
+    "scope": "redesign — hero + palette only; below-fold sections untouched",
+    "brief": "Kashish · storefront UI/UX designer portfolio — de-agency the fold, warm the palette"
+  },
+  {
+    "date": "2026-08-15",
     "macrostructure": "Marquee Hero",
     "theme": "custom",
     "theme_axes": "light / roman-serif / chromatic-dusty-rose",

@@ -1,7 +1,12 @@
 {
-  "heading": "A short note on how I work",
+  "heading": "About me",
   "body": [
     "I design the parts of a product where decisions get made — where someone chooses, commits, and either finishes or leaves. Right now that mostly means storefronts: product pages, carts, checkouts.",
     "The work starts with what a person is actually trying to do, then removes whatever stands between them and finishing. Fewer steps, clearer choices, less decoration asking to be admired."
+  ],
+  "stats": [
+    { "figure": "6+", "label": "Years of experience" },
+    { "figure": "40+", "label": "Completed projects" },
+    { "figure": "20+", "label": "Clients worldwide" }
   ]
 }

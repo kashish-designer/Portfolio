@@ -30,10 +30,10 @@ export default function Contact() {
   const hintId = (name: string) => `${id}-${name}-hint`;
 
   return (
-    <section id="contact" className="px-gutter pt-3xl pb-3xl">
+    <section id="contact" className="bg-paper-2 px-gutter pb-3xl pt-3xl">
       <div className="grid gap-xl lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-2xl">
         <div>
-          <h2 className="max-w-[16ch] font-display text-2xl font-semibold leading-[1.08] tracking-[-0.02em] text-ink [overflow-wrap:anywhere] min-w-0 sm:text-3xl">
+          <h2 className="poster-heading min-w-0 max-w-[16ch] text-ink">
             {contact.heading}
           </h2>
           <p className="mt-lg max-w-[44ch] text-base text-ink-2">
@@ -46,7 +46,7 @@ export default function Contact() {
             <div>
               <label
                 htmlFor={fieldId("name")}
-                className="mb-2xs block font-outlier text-xs uppercase tracking-[0.14em] text-ink-2"
+                className="field-label"
               >
                 {contact.fields.name.label}
               </label>
@@ -72,7 +72,7 @@ export default function Contact() {
             <div>
               <label
                 htmlFor={fieldId("email")}
-                className="mb-2xs block font-outlier text-xs uppercase tracking-[0.14em] text-ink-2"
+                className="field-label"
               >
                 {contact.fields.email.label}
               </label>
@@ -99,7 +99,7 @@ export default function Contact() {
           <div>
             <label
               htmlFor={fieldId("projectType")}
-              className="mb-2xs block font-outlier text-xs uppercase tracking-[0.14em] text-ink-2"
+              className="field-label"
             >
               {contact.fields.projectType.label}
             </label>
@@ -121,7 +121,7 @@ export default function Contact() {
           <div>
             <label
               htmlFor={fieldId("message")}
-              className="mb-2xs block font-outlier text-xs uppercase tracking-[0.14em] text-ink-2"
+              className="field-label"
             >
               {contact.fields.message.label}
             </label>

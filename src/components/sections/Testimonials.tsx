@@ -1,45 +1,61 @@
+import Carousel from "@/components/ui/Carousel";
 import testimonialsContent from "@/data/testimonials.json";
 import type { TestimonialsContent } from "@/types/content";
 
 const testimonials: TestimonialsContent = testimonialsContent;
 
 /**
- * T1 · Pull quote with marginalia.
+ * Quote carousel — the reference's feedback row, with the paging controls
+ * bottom-right.
  *
- * The quote holds the wide column; attribution sits in the narrow margin
- * beside it, dropping below the quote under 64rem. Quotes are roman, not
- * italic — an italicised display quote is one of the more reliable AI tells,
- * and Cormorant's italic is too delicate to carry a whole paragraph.
+ * Scroll behaviour and the pagers live in `Carousel`, shared with Work. This
+ * section is a server component as a result; only the carousel subtree ships
+ * JavaScript.
  *
- * No visible section heading: every other head shape on the page is taken, and
- * a quote needs no introduction. The heading below is for screen readers.
- *
- * No carousel. Auto-rotating quotes fail WCAG 2.2.2 and hide two thirds of the
- * proof behind a timer.
+ * No portraits — see the note on `TestimonialsContent`.
  */
 export default function Testimonials() {
   return (
-    <section id="testimonials" className="bg-paper-3 px-gutter pt-4xl pb-4xl">
-      <h2 className="sr-only">{testimonials.heading}</h2>
+    <section id="testimonials" className="border-b border-rule pb-3xl pt-4xl">
+      <div className="px-gutter">
+        <h2 className="poster-heading min-w-0 max-w-[12ch] text-ink">
+          {testimonials.heading}
+        </h2>
+        <p className="mt-md max-w-[46ch] text-base text-ink-2">
+          {testimonials.lede}
+        </p>
+      </div>
 
-      <div className="grid gap-2xl">
-        {testimonials.testimonials.map((testimonial) => (
-          <figure
-            key={testimonial.name}
-            className="grid gap-x-lg gap-y-md border-t border-rule pt-lg lg:grid-cols-[minmax(0,1.7fr)_minmax(0,0.7fr)]"
-          >
-            <blockquote className="max-w-[42ch] font-display text-lg leading-[1.35] text-ink [overflow-wrap:anywhere] min-w-0">
-              {testimonial.quote}
-            </blockquote>
+      <div className="mt-2xl">
+        <Carousel
+          label={testimonials.heading}
+          previousLabel={testimonials.previousLabel}
+          nextLabel={testimonials.nextLabel}
+        >
+          {testimonials.testimonials.map((testimonial) => (
+            <li
+              key={testimonial.name}
+              className="min-w-0 shrink-0 basis-[84%] snap-start sm:basis-[56%] lg:basis-[40%]"
+            >
+              <figure className="border-t border-rule pt-lg">
+                <span className="quote-mark" aria-hidden="true">
+                  &ldquo;
+                </span>
 
-            <figcaption className="font-outlier text-xs uppercase tracking-[0.14em] text-ink lg:text-right">
-              {testimonial.name}
-              <span className="mt-2xs block normal-case tracking-normal text-ink-2">
-                {testimonial.role}, {testimonial.company}
-              </span>
-            </figcaption>
-          </figure>
-        ))}
+                <blockquote className="mt-sm min-w-0 max-w-[38ch] text-md leading-[1.5] text-ink [overflow-wrap:anywhere]">
+                  {testimonial.quote}
+                </blockquote>
+
+                <figcaption className="mt-lg text-sm text-ink">
+                  {testimonial.name}
+                  <span className="mt-3xs block text-ink-2">
+                    {testimonial.role}, {testimonial.company}
+                  </span>
+                </figcaption>
+              </figure>
+            </li>
+          ))}
+        </Carousel>
       </div>
     </section>
   );

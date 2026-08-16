@@ -1,40 +1,60 @@
+import Image from "next/image";
+
+import { placeholderImage } from "@/config/placeholders";
 import writingContent from "@/data/writing.json";
 import type { WritingContent } from "@/types/content";
 
 const writing: WritingContent = writingContent;
 
 /**
- * Post index — two-column text entries.
+ * Three-up post strip — the reference's blog row.
  *
- * Differentiated from Work (image grid) and Services (full-width rows) by
- * layout rather than by a new head archetype: the cookbook ships five section
- * heads and this page has already used all of them, so contorting the shape
- * here would cost more than reusing a stacked head.
+ * Equal tiles on purpose: this is the one section where uniformity is the
+ * point, because the posts are peers and none is featured. The Work strip
+ * directly above earns its irregularity by having a lead project; this does
+ * not, and faking a hierarchy here would just be decoration.
  *
- * Dates lead each entry so the list reads chronologically at a glance. Entries
- * are not links — no post pages exist yet.
+ * Entries are not links: no post pages exist yet, and a headline that looks
+ * clickable and goes nowhere is worse than one that plainly does not.
  */
 export default function Writing() {
   return (
-    <section id="writing" className="bg-paper-3 px-gutter pt-2xl pb-2xl">
-      <h2 className="max-w-[16ch] font-display text-2xl font-semibold leading-[1.08] tracking-[-0.02em] text-ink sm:text-3xl">
+    <section
+      id="writing"
+      className="border-b border-rule px-gutter pb-3xl pt-4xl"
+    >
+      <h2 className="poster-heading min-w-0 max-w-[12ch] text-ink">
         {writing.heading}
       </h2>
       <p className="mt-md max-w-[46ch] text-base text-ink-2">{writing.note}</p>
 
-      <ul className="mt-2xl grid gap-x-2xl gap-y-xl md:grid-cols-2">
+      <ul className="mt-2xl grid gap-x-lg gap-y-2xl sm:grid-cols-2 lg:grid-cols-3">
         {writing.posts.map((post) => (
-          <li key={post.slug} className="min-w-0 border-t border-rule pt-md">
+          <li key={post.slug} className="min-w-0">
+            {/* TODO: Replace with real post artwork, target size: 1200×900 */}
+            <div className="relative aspect-[4/3] w-full overflow-hidden bg-paper-2">
+              <Image
+                src={placeholderImage(post.image.file)}
+                alt={post.image.alt}
+                fill
+                loading="lazy"
+                sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                className="object-cover"
+              />
+            </div>
+
             <time
               dateTime={post.date}
-              className="font-outlier text-xs uppercase tracking-[0.14em] text-ink-2"
+              className="mt-md block text-sm tabular-nums text-muted"
             >
               {post.dateLabel}
             </time>
-            <h3 className="mt-sm max-w-[26ch] font-display text-lg leading-[1.25] text-ink [overflow-wrap:anywhere] min-w-0">
+
+            <h3 className="mt-2xs min-w-0 max-w-[26ch] text-md font-medium leading-[1.25] text-ink [overflow-wrap:anywhere]">
               {post.title}
             </h3>
-            <p className="mt-sm max-w-[46ch] text-base text-ink-2">
+
+            <p className="mt-sm max-w-[42ch] text-sm text-ink-2">
               {post.excerpt}
             </p>
           </li>
