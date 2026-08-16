@@ -128,6 +128,503 @@ body::before {
   cursor: not-allowed;
 }
 
+/* Poster name + the panel that reveals it.
+
+   The name is paper-on-paper and therefore invisible against the page; the
+   rose panel is pulled up over its lower portion and the name stacks above it,
+   so only the crossing part reads. Both offsets are computed from
+   `--text-poster`, so changing the type size moves the panel with it — the two
+   cannot drift apart the way two hand-tuned numbers would.
+
+   The panel rides up 0.55em, which leaves roughly the top third of the cap
+   height above its edge. Less overlap and the name reads as merely
+   bottom-cropped; more and the letters lose their shoulders and stop being
+   readable at all.
+
+   The panel's top padding repays the same distance, so its content starts
+   below the name instead of colliding with it — one constant, two uses, which
+   is why they are computed rather than typed twice. */
+.poster-name {
+  position: relative;
+  z-index: var(--z-raised);
+  margin: 0;
+  font-family: var(--font-poster);
+  font-size: var(--text-poster);
+  font-weight: 800;
+  line-height: 0.82;
+  letter-spacing: -0.045em;
+  min-width: 0;
+  /* Deliberately NOT `overflow-wrap: anywhere`, which every other display
+     header on this page uses. Sizing the name to the gutter is a vw
+     calculation against font metrics, and if it overshoots by a single pixel
+     the wrap rule splits the name across two lines — "Kashis / h" — which
+     silently doubles the height of the fold. Refusing to wrap makes the
+     failure mode a harmless clip against the section's own overflow instead.
+     Safe because this renders one short word, never a sentence. */
+  white-space: nowrap;
+  /* Letter-spacing is applied after the last glyph too, which leaves a gap the
+     width of the tracking at the right edge and stops the name from sitting
+     flush. Reclaim exactly that much. */
+  margin-right: -0.045em;
+}
+
+.poster-panel {
+  --poster-overlap: calc(var(--text-poster) * 0.55);
+
+  position: relative;
+  z-index: var(--z-base);
+  margin-top: calc(var(--poster-overlap) * -1);
+  padding-top: calc(var(--poster-overlap) + var(--spacing-xl));
+}
+
+/* Section heading in the poster voice. Every section head on the page uses
+   this one class, so the scale, weight, and tracking are set in a single
+   place rather than re-typed per section. */
+.poster-heading {
+  font-family: var(--font-poster);
+  font-size: var(--text-poster-heading);
+  font-weight: 800;
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+  overflow-wrap: anywhere;
+}
+
+/* Footer contact affordance — the band's largest element, set one step under
+   the section heads so it reads as an address, not a headline. */
+.footer-contact {
+  display: inline-block;
+  max-width: 100%;
+  font-family: var(--font-poster);
+  font-size: var(--text-poster-heading);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+  color: var(--color-rose-ink);
+  overflow-wrap: anywhere;
+  border-bottom: var(--rule-thick) solid transparent;
+  outline: 2px solid transparent;
+  outline-offset: 4px;
+  transition: border-color var(--dur-micro) var(--ease-out);
+}
+
+.footer-contact:hover {
+  border-bottom-color: var(--color-rose-ink);
+}
+
+/* Focus rings appear instantly — never transitioned. */
+.footer-contact:focus-visible {
+  outline-color: var(--color-rose-ink);
+}
+
+.footer-contact:active {
+  transform: translateY(1px);
+}
+
+/* Footer links. Padding carries the 44px hit area; the underline sits on the
+   text itself so the rule never stretches past the word. */
+.footer-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  color: var(--color-rose-ink);
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-decoration-thickness: var(--rule-hair);
+  text-underline-offset: 0.25rem;
+  outline: 2px solid transparent;
+  outline-offset: 3px;
+  transition: text-decoration-color var(--dur-micro) var(--ease-out);
+}
+
+.footer-link:hover {
+  text-decoration-color: currentColor;
+}
+
+.footer-link:focus-visible {
+  outline-color: var(--color-rose-ink);
+}
+
+.footer-link:active {
+  transform: translateY(1px);
+}
+
+/* Circular back-to-top. Same 44px circle as the menu toggle and the pagers —
+   one control shape reused, rather than three shapes doing one job. */
+.back-to-top {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  flex: none;
+  border: var(--rule-hair) solid var(--color-rose-ink);
+  border-radius: 50%;
+  color: var(--color-rose-ink);
+  outline: 2px solid transparent;
+  outline-offset: 3px;
+  transition:
+    background-color var(--dur-micro) var(--ease-out),
+    color var(--dur-micro) var(--ease-out);
+}
+
+.back-to-top:hover {
+  background-color: var(--color-rose-ink);
+  color: var(--color-rose);
+}
+
+.back-to-top:focus-visible {
+  outline-color: var(--color-rose-ink);
+}
+
+.back-to-top:active {
+  transform: translateY(1px);
+}
+
+/* The name again, cropped by the footer's bottom edge. Same trick as the hero
+   panel — the offset is derived from the type size so the two move together. */
+.footer-wordmark {
+  margin: 0;
+  margin-bottom: calc(var(--text-poster) * -0.22);
+  font-family: var(--font-poster);
+  font-size: var(--text-poster);
+  font-weight: 800;
+  line-height: 0.82;
+  letter-spacing: -0.045em;
+  color: var(--color-rose-ink);
+  white-space: nowrap;
+}
+
+/* Quote carousel track. The scrollbar is hidden because the paging buttons and
+   the snap points already communicate that there is more — but the container
+   stays a real scroll container, so swipe and keyboard arrows still work. */
+.quote-track {
+  scrollbar-width: none;
+  /* Without this the snapport starts at the border box, so the first item's
+     snap-start pulls it flush past the gutter — the track silently scrolls
+     itself on load, the first quote loses its left margin, and the Prev button
+     never reaches its disabled state because scrollLeft is never 0. */
+  scroll-padding-inline: var(--spacing-gutter);
+}
+
+.quote-track::-webkit-scrollbar {
+  display: none;
+}
+
+/* The track is focusable so keyboard users can scroll it; it needs a visible
+   ring like any other focusable thing. */
+.quote-track:focus-visible {
+  outline: var(--rule-thick) solid var(--color-focus);
+  outline-offset: -2px;
+}
+
+/* Opening quote mark, set large in the display face. Decorative — the
+   blockquote carries the semantics, so it is aria-hidden in the markup. */
+.quote-mark {
+  display: block;
+  font-family: var(--font-display);
+  font-size: var(--text-3xl);
+  line-height: 0.6;
+  color: var(--color-accent);
+}
+
+/* Circular pager buttons. Border-width is constant across states so the row
+   cannot shift by a pixel when one becomes disabled. */
+.pager {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  flex: none;
+  border: var(--rule-hair) solid var(--color-muted);
+  border-radius: 50%;
+  background-color: transparent;
+  color: var(--color-ink);
+  cursor: pointer;
+  outline: 2px solid transparent;
+  outline-offset: 3px;
+  transition:
+    background-color var(--dur-micro) var(--ease-out),
+    border-color var(--dur-micro) var(--ease-out),
+    color var(--dur-micro) var(--ease-out);
+}
+
+.pager:hover:not(:disabled) {
+  border-color: var(--color-ink);
+  background-color: var(--color-paper-2);
+}
+
+/* Focus rings appear instantly — never transitioned. */
+.pager:focus-visible {
+  outline-color: var(--color-focus);
+}
+
+.pager:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.pager:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Service disclosure rows. Hairline-separated, no cards, no boxes — the row
+   IS the affordance, so the whole summary line is the hit target. */
+.service-row {
+  border-top: var(--rule-hair) solid var(--color-rule);
+}
+
+.service-row:last-child {
+  border-bottom: var(--rule-hair) solid var(--color-rule);
+}
+
+.service-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-lg);
+  padding-block: var(--spacing-lg);
+  cursor: pointer;
+  outline: 2px solid transparent;
+  outline-offset: -2px;
+  transition: color var(--dur-micro) var(--ease-out);
+  /* The default disclosure triangle is replaced by `.service-marker`. Both
+     rules are needed: the pseudo-element covers WebKit, `list-style` the rest. */
+  list-style: none;
+}
+
+.service-summary::-webkit-details-marker {
+  display: none;
+}
+
+.service-summary:hover {
+  color: var(--color-accent);
+}
+
+/* Only the heading takes the hover colour; the marker keeps its own. */
+.service-summary:hover .poster-heading {
+  color: var(--color-accent);
+}
+
+/* Focus rings appear instantly — never transitioned. */
+.service-summary:focus-visible {
+  outline-color: var(--color-focus);
+}
+
+.service-summary:active .service-marker {
+  transform: translateY(1px);
+}
+
+/* Square marker, outlined when collapsed and filled when open — the reference's
+   state signal. Border-width never changes, so the row cannot shift. */
+.service-marker {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  flex: none;
+  border: var(--rule-hair) solid var(--color-muted);
+  background-color: transparent;
+  color: var(--color-ink);
+  transition:
+    background-color var(--dur-micro) var(--ease-out),
+    border-color var(--dur-micro) var(--ease-out),
+    color var(--dur-micro) var(--ease-out),
+    transform var(--dur-micro) var(--ease-out);
+}
+
+/* The arrow is drawn with borders rather than shipped as an icon font or an
+   SVG file — two borders and a rotation is the whole glyph. */
+.service-marker::before {
+  content: "";
+  width: 0.5rem;
+  height: 0.5rem;
+  border-top: var(--rule-thick) solid currentColor;
+  border-right: var(--rule-thick) solid currentColor;
+  transform: rotate(-45deg) translate(-0.0625rem, 0.0625rem);
+  transition: transform var(--dur-short) var(--ease-out);
+}
+
+.service-summary:hover .service-marker {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+[open] > .service-summary .service-marker {
+  border-color: var(--color-rose);
+  background-color: var(--color-rose);
+  color: var(--color-rose-ink);
+}
+
+[open] > .service-summary .service-marker::before {
+  transform: rotate(135deg) translate(-0.0625rem, 0.0625rem);
+}
+
+/* Content fades rather than sliding: height is a layout property and animating
+   it is the jank this codebase avoids everywhere else. */
+.service-panel {
+  opacity: 0;
+  transform: translateY(6px);
+  animation: reveal var(--dur-short) var(--ease-out) forwards;
+}
+
+/* Circular menu toggle. Sits above its own overlay panel (z-40 vs the panel's
+   z-30) so the same control closes what it opened. Border-width never changes
+   between states — state lives on colour and fill, so nothing shifts. */
+.menu-toggle {
+  position: relative;
+  z-index: 40;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  flex: none;
+  border: var(--rule-hair) solid var(--color-muted);
+  border-radius: 50%;
+  background-color: transparent;
+  color: var(--color-ink);
+  cursor: pointer;
+  outline: 2px solid transparent;
+  outline-offset: 3px;
+  transition:
+    background-color var(--dur-micro) var(--ease-out),
+    border-color var(--dur-micro) var(--ease-out),
+    color var(--dur-micro) var(--ease-out);
+}
+
+/* The two bars are one element plus a pseudo-element, so the X rotation has
+   something to rotate against without extra markup. */
+.menu-toggle__bars,
+.menu-toggle__bars::after {
+  display: block;
+  width: 1rem;
+  height: var(--rule-hair);
+  background-color: currentColor;
+  transition: transform var(--dur-short) var(--ease-out);
+}
+
+.menu-toggle__bars {
+  transform: translateY(-0.1875rem);
+}
+
+.menu-toggle__bars::after {
+  content: "";
+  transform: translateY(0.3125rem);
+}
+
+.menu-toggle[data-open="true"] {
+  border-color: var(--color-rose-ink);
+  color: var(--color-rose-ink);
+}
+
+.menu-toggle[data-open="true"] .menu-toggle__bars {
+  transform: translateY(0) rotate(45deg);
+}
+
+.menu-toggle[data-open="true"] .menu-toggle__bars::after {
+  transform: translateY(0) rotate(-90deg);
+}
+
+.menu-toggle:hover {
+  border-color: var(--color-ink);
+  background-color: var(--color-paper-2);
+}
+
+.menu-toggle[data-open="true"]:hover {
+  background-color: transparent;
+  border-color: var(--color-paper);
+}
+
+/* Focus rings appear instantly — never transitioned. */
+.menu-toggle:focus-visible {
+  outline-color: var(--color-focus);
+}
+
+.menu-toggle[data-open="true"]:focus-visible {
+  outline-color: var(--color-rose-ink);
+}
+
+.menu-toggle:active {
+  transform: translateY(1px);
+}
+
+.menu-toggle:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* Overlay menu links. Poster face, so the panel matches the page's voice. */
+.menu-link {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  min-height: 2.75rem;
+  max-width: 100%;
+  font-family: var(--font-poster);
+  font-size: var(--text-poster-s);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+  color: var(--color-rose-ink);
+  outline: 2px solid transparent;
+  outline-offset: 4px;
+  overflow-wrap: anywhere;
+  transition: opacity var(--dur-micro) var(--ease-out);
+}
+
+.menu-link:hover {
+  opacity: 0.65;
+}
+
+.menu-link:focus-visible {
+  outline-color: var(--color-rose-ink);
+}
+
+.menu-link:active {
+  transform: translateY(1px);
+}
+
+/* C3 · Typographic link. A word, an arrow, and a 1px underline — no box, no
+   fill. The underline sits on an inner span so the 44px hit area can extend
+   past the rule rather than stretching it. */
+.link-typographic {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  min-height: 2.75rem;
+  color: var(--color-ink);
+  font-size: var(--text-md);
+  line-height: 1;
+  outline: 2px solid transparent;
+  outline-offset: 3px;
+  transition: color var(--dur-micro) var(--ease-out);
+}
+
+.link-typographic > span:first-child {
+  border-bottom: var(--rule-hair) solid var(--color-muted);
+  padding-bottom: var(--spacing-3xs);
+  transition: border-color var(--dur-micro) var(--ease-out);
+}
+
+.link-typographic:hover {
+  color: var(--color-accent);
+}
+
+.link-typographic:hover > span:first-child {
+  border-color: var(--color-accent);
+}
+
+/* Focus rings appear instantly — the transition above never includes outline. */
+.link-typographic:focus-visible {
+  outline-color: var(--color-focus);
+}
+
+.link-typographic:active {
+  transform: translateY(1px);
+}
+
 /* Skill index. Separators are pseudo-elements inside each item, so a dot can
    never wrap to the start of a line the way a standalone separator span does.
    Line breaks happen between items only. */
@@ -144,14 +641,11 @@ body::before {
   color: var(--color-accent);
 }
 
-/* Hero scrim over the fold photograph. Weights live on the scrim tokens. */
-.hero-scrim {
-  background-image: linear-gradient(
-    to bottom,
-    var(--color-scrim-top),
-    var(--color-scrim-mid) 55%,
-    var(--color-scrim-base)
-  );
+/* Rose wash over the hero portrait. Ties grayscale placeholder photography to
+   the palette; harmless once a real colour portrait lands. */
+.portrait-wash {
+  background-color: var(--color-wash-rose);
+  mix-blend-mode: multiply;
 }
 
 ::selection {
