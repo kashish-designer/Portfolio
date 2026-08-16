@@ -25,12 +25,10 @@ const site: SiteContent = siteContent;
 /**
  * Poster fold.
  *
- * The name is set in paper on paper, and the rose panel rides up over its
- * lower two thirds — so the letterforms are only legible where they cross the
- * panel, and the name reads as cut out of the colour rather than printed on
- * it. That overlap is the whole idea; see `.poster-name` in globals.css for
- * the geometry, which is derived from `--text-poster` so the two can never
- * drift apart.
+ * The name is coloured type sitting on the paper, and the panel's top edge
+ * butts against its baseline — the fold the reference is built around. See
+ * `.poster-name` in globals.css for the geometry, which is derived from
+ * `--text-poster` so the type size and the fold can never drift apart.
  *
  * The label row rides the name's cap line the way a masthead's issue line
  * does. The panel's left column takes the positioning statement — the slot the
@@ -59,14 +57,19 @@ export default function Hero() {
         ) : null}
       </div>
 
-      {/* TRIAL: the fold is on `accent` — the saturated pink used by text
-          selection — rather than the muted `rose`. The showcase mount and the
-          footer band are still on `rose`, so the three no longer match. */}
-      <h1 className="poster-name px-gutter text-accent">{site.name}</h1>
+      {/* The fold is the one place `--color-hero` (#e92869) appears. The
+          showcase mount and the footer band are still on `--color-rose`, so
+          the page deliberately carries a bright pink at the top and a muted
+          one below.
+
+          Paper type on this pink measures 3.83:1, so the headline and cue
+          inside the panel are under AA — see the contrast note on the token
+          for the darkened value that fixes it. */}
+      <h1 className="poster-name px-gutter text-hero">{site.name}</h1>
 
       {/* Inset by the gutter so its edges line up with the name above it. No
           bottom padding — the portrait runs to the panel's bottom edge. */}
-      <div className="poster-panel bg-accent">
+      <div className="poster-panel bg-hero">
         <div className="grid items-end gap-lg px-lg pt-2xl lg:grid-cols-12 lg:gap-2xl">
           <p className="min-w-0 max-w-[22ch] text-md leading-[1.35] text-accent-ink lg:col-span-3 lg:pb-3xl">
             {hero.headline}

@@ -61,6 +61,21 @@
      that, silently leaving no rule at all. */
   --color-rose-rule: oklch(61% 0.055 16);
 
+  /* Hero fold surface — #e92869. Brighter and more saturated than anything
+     else in the palette, and used only on the fold: the panel, the name above
+     it, and nothing else.
+
+     CONTRAST: paper type measures 3.83:1 here, under the 4.5:1 that the
+     panel's headline (20px) and scroll cue (10px caps) need. The name itself
+     is fine — poster scale counts as large text, where 3:1 is the bar.
+     Darkening to oklch(55% 0.2 8.3) (~#c8285b) reaches 4.91:1 and keeps the
+     hue, if the panel copy should pass AA.
+
+     Previous values, kept in case this needs to go back:
+       oklch(50% 0.16 12)   #aa2e4a  same as --color-accent, paper 5.95:1
+       oklch(52% 0.065 16)  #895a5c  the muted --color-rose, paper 5.17:1 */
+  --color-hero: oklch(61.3% 0.225 8.3);
+
   --color-accent: oklch(50% 0.16 12); /* dusty rose — the only saturated value */
   --color-accent-strong: oklch(43% 0.16 12); /* accent hover/active */
   --color-accent-ink: oklch(96.8% 0.014 28); /* text on accent fill */
