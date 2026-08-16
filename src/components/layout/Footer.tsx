@@ -84,13 +84,36 @@ export default function Footer() {
       {/* The control sits alone on the left and the name closes hard right,
           which is the reference's arrangement. The name is not cropped — see
           `.footer-wordmark`. */}
-      <div className="mt-xl flex items-end gap-lg px-gutter pb-xl">
+      <div className="mt-xl flex items-end gap-lg px-gutter">
         <a href="#top" className="back-to-top">
           <span className="sr-only">{footer.backToTopLabel}</span>
           <span aria-hidden="true">&uarr;</span>
         </a>
 
         <p className="footer-wordmark min-w-0 flex-1">{site.name}</p>
+      </div>
+
+      {/* Rule sits inside the gutter so it lines up with the page's other
+          hairlines rather than running edge to edge. */}
+      <div className="mx-gutter mt-lg border-t border-rose-rule">
+        {/* Words are separate elements so the symbol can carry its own
+            accessible name, which means the spaces between them come from the
+            gap rather than from the text. */}
+        <p className="flex flex-wrap items-center justify-center gap-x-xs pb-lg pt-sm text-center text-sm text-rose-ink">
+          <span className="opacity-80">{footer.credit.prefix}</span>
+          <span role="img" aria-label={footer.credit.symbolLabel}>
+            {footer.credit.symbol}
+          </span>
+          <span className="opacity-80">{footer.credit.connector}</span>
+          <a
+            href={footer.credit.href}
+            target="_blank"
+            rel="noreferrer"
+            className="footer-link"
+          >
+            {footer.credit.label}
+          </a>
+        </p>
       </div>
 
     </footer>

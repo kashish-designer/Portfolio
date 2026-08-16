@@ -5,5 +5,13 @@
   "tagline": "Storefront design for brands that would rather be finished than admired.",
   "social": [],
   "colophon": "Set in Geist.",
+  "credit": {
+    "prefix": "Developed with",
+    "symbol": "❤️",
+    "symbolLabel": "love",
+    "connector": "by",
+    "label": "Aneesh Lalwani",
+    "href": "https://www.aneeshlalwani.me/"
+  },
   "backToTopLabel": "Back to top"
 }

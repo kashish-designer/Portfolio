@@ -55,6 +55,11 @@
      5.17:1 on it. Used for the hero panel and the footer band. */
   --color-rose: oklch(52% 0.065 16);
   --color-rose-ink: oklch(96.8% 0.014 28); /* text on the rose panel */
+  /* Hairline on the rose band. Spelled out as its own value rather than
+     `rose-ink` at an opacity: Tailwind's opacity modifier compiles to a
+     color-mix() whose argument is a var(), and Lightning CSS drops exactly
+     that, silently leaving no rule at all. */
+  --color-rose-rule: oklch(61% 0.055 16);
 
   --color-accent: oklch(50% 0.16 12); /* dusty rose — the only saturated value */
   --color-accent-strong: oklch(43% 0.16 12); /* accent hover/active */

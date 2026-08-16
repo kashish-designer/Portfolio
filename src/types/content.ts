@@ -176,6 +176,21 @@ export interface FooterContent {
   tagline: string;
   social: NavLink[];
   colophon: string;
+  /** Build credit, centred under the wordmark. `href` is external, so the
+   *  link opens in a new tab with `rel="noreferrer"`.
+   *
+   *  The symbol is split from the surrounding words so it can be given an
+   *  accessible name: it renders as `role="img"` labelled by `symbolLabel`,
+   *  which reads as "Developed with love by …" rather than leaving a screen
+   *  reader to announce whatever it makes of the raw glyph. */
+  credit: {
+    prefix: string;
+    symbol: string;
+    symbolLabel: string;
+    connector: string;
+    label: string;
+    href: string;
+  };
   backToTopLabel: string;
 }
 
