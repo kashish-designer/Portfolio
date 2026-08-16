@@ -109,7 +109,7 @@ export default function Footer() {
             href={footer.credit.href}
             target="_blank"
             rel="noreferrer"
-            className="footer-link"
+            className="footer-link font-semibold"
           >
             {footer.credit.label}
           </a>
