@@ -31,6 +31,14 @@ export interface ImageSlot {
   alt: string;
 }
 
+/** A real, shipped image: `src` is a path under `public/`, not a placeholder
+ *  key. As sections get their real assets they move from `ImageSlot` to this,
+ *  and `src/config/placeholders.ts` can be deleted once none are left. */
+export interface ImageAsset {
+  src: string;
+  alt: string;
+}
+
 export interface HeroContent {
   /** First person. Sits in the panel's left column, in the slot the reference
    *  design gives a QR code — a statement earns that space, a QR to nowhere
@@ -47,7 +55,9 @@ export interface HeroContent {
   /** Scroll cue pointing at the work section below — the Work section has no
    *  visible heading of its own and relies on this. */
   cue: string;
-  image: ImageSlot;
+  /** Kashish's real portrait — the first section off the placeholders. The
+   *  frame is set to the file's own 4:5 ratio so nothing is cropped. */
+  image: ImageAsset;
 }
 
 /** PLACEHOLDER DATA — clients, years, and roles below are invented for layout

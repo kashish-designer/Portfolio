@@ -1,6 +1,5 @@
 import Image from "next/image";
 
-import { placeholderImage } from "@/config/placeholders";
 import heroContent from "@/data/hero.json";
 import siteContent from "@/data/site.json";
 import type { HeroContent, SiteContent } from "@/types/content";
@@ -45,24 +44,26 @@ export default function Hero() {
         ) : null}
       </div>
 
-      {/* Rose type on the paper. The panel below butts up against its
-          baseline, which is the fold the reference is built around. */}
-      <h1 className="poster-name px-gutter text-rose">{site.name}</h1>
+      {/* TRIAL: the fold is on `accent` — the saturated pink used by text
+          selection — rather than the muted `rose`. The showcase mount and the
+          footer band are still on `rose`, so the three no longer match. */}
+      <h1 className="poster-name px-gutter text-accent">{site.name}</h1>
 
       {/* Inset by the gutter so its edges line up with the name above it. No
           bottom padding — the portrait runs to the panel's bottom edge. */}
-      <div className="poster-panel bg-rose">
+      <div className="poster-panel bg-accent">
         <div className="grid items-end gap-lg px-lg pt-2xl lg:grid-cols-12 lg:gap-2xl">
-          <p className="min-w-0 max-w-[22ch] text-md leading-[1.35] text-rose-ink lg:col-span-3 lg:pb-3xl">
+          <p className="min-w-0 max-w-[22ch] text-md leading-[1.35] text-accent-ink lg:col-span-3 lg:pb-3xl">
             {hero.headline}
           </p>
 
-          {/* TODO: Replace with a real portrait of Kashish, target size: 1200×1600.
-              The reference fold is carried entirely by the photograph; the desk
-              placeholder is standing in for one, not substituting for it. */}
-          <div className="relative aspect-[3/4] max-h-[62dvh] w-full min-w-0 self-end lg:col-span-6 lg:col-start-4">
+          {/* The frame matches the file's own 4:5 ratio, so the portrait is not
+              cropped at its natural size. `max-h` still bites on short
+              viewports; the crop is centred there because her face sits near
+              the middle of the frame and anchoring to the top would cut it. */}
+          <div className="relative aspect-[4/5] max-h-[72dvh] w-full min-w-0 self-end lg:col-span-6 lg:col-start-4">
             <Image
-              src={placeholderImage(hero.image.file)}
+              src={hero.image.src}
               alt={hero.image.alt}
               fill
               priority
@@ -71,11 +72,11 @@ export default function Hero() {
               fetchPriority="high"
               loading="eager"
               sizes="(min-width: 1024px) 50vw, 100vw"
-              className="object-cover object-top"
+              className="object-cover"
             />
           </div>
 
-          <p className="font-outlier text-xs uppercase tracking-[0.14em] text-rose-ink lg:col-span-3 lg:col-start-10 lg:pb-3xl lg:text-right">
+          <p className="font-outlier text-xs uppercase tracking-[0.14em] text-accent-ink lg:col-span-3 lg:col-start-10 lg:pb-3xl lg:text-right">
             {hero.cue}&nbsp;↓
           </p>
         </div>
