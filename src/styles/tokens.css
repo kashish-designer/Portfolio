@@ -47,16 +47,21 @@
   /* Text on either pink band. */
   --color-hero-ink: oklch(96.8% 0.014 28);
 
-  /* Deep step of the same hue, for bands that carry running text.
-     #e92869 cannot: paper on it is 3.83:1, and the footer sets most of its
-     copy at `text-sm` with `opacity-80`, which lands at 3.26:1. At this step
-     the same copy measures 4.67:1 and full-strength paper 5.59:1.
+  /* Deep step of the same hue, for bands that carry running text. #e92869
+     cannot: paper on it is only 3.83:1.
+
+     Held as close to the fold as contrast allows — 55% against the fold's
+     61%, so the two bands read as the same pink rather than two. Paper text
+     lands at 4.91:1 here, just over the line, which is why secondary copy on
+     these bands runs at `opacity-90` (4.52:1) and not the `opacity-80` used
+     on paper surfaces: 80% would drop it to 4.13:1 and fail. Going darker
+     would buy headroom at the cost of the match.
 
      Sharing hue 8.3 with `--color-hero` is the point — the page previously
      ran two unrelated pinks (this slot was oklch(52% 0.065 16), a low-chroma
      mauve at hue 16). Two lightness steps of one hue read as one colour;
      two hues read as a mistake. */
-  --color-hero-deep: oklch(52% 0.2 8.3);
+  --color-hero-deep: oklch(55% 0.2 8.3);
 
   /* Hairline on the deep band. Spelled out as its own value rather than
      `hero-ink` at an opacity: Tailwind's opacity modifier compiles to a

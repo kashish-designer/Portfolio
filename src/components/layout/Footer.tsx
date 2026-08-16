@@ -29,7 +29,7 @@ export default function Footer() {
     <footer className="relative overflow-hidden bg-hero-deep pt-4xl text-hero-ink">
       <div className="grid gap-2xl px-gutter lg:grid-cols-12">
         <div className="min-w-0 lg:col-span-7">
-          <p className="text-sm opacity-80">{footer.invitation}</p>
+          <p className="text-sm opacity-90">{footer.invitation}</p>
 
           <a
             href={hasEmail ? `mailto:${footer.email}` : footer.fallback.href}
@@ -56,7 +56,7 @@ export default function Footer() {
             </ul>
           ) : null}
 
-          <div className="mt-2xl flex flex-wrap gap-x-lg gap-y-2xs text-sm opacity-80">
+          <div className="mt-2xl flex flex-wrap gap-x-lg gap-y-2xs text-sm opacity-90">
             <p>
               © {year} {site.name}. All rights reserved.
             </p>
@@ -65,7 +65,7 @@ export default function Footer() {
         </div>
 
         <div className="min-w-0 lg:col-span-3 lg:col-start-10">
-          <p className="max-w-[32ch] text-sm opacity-80">{footer.tagline}</p>
+          <p className="max-w-[32ch] text-sm opacity-90">{footer.tagline}</p>
 
           <nav aria-label="Footer" className="mt-lg">
             <ul className="flex flex-col items-start gap-2xs">
@@ -100,11 +100,11 @@ export default function Footer() {
             accessible name, which means the spaces between them come from the
             gap rather than from the text. */}
         <p className="flex flex-wrap items-center justify-center gap-x-xs pb-lg pt-sm text-center text-sm text-hero-ink">
-          <span className="opacity-80">{footer.credit.prefix}</span>
+          <span className="opacity-90">{footer.credit.prefix}</span>
           <span role="img" aria-label={footer.credit.symbolLabel}>
             {footer.credit.symbol}
           </span>
-          <span className="opacity-80">{footer.credit.connector}</span>
+          <span className="opacity-90">{footer.credit.connector}</span>
           <a
             href={footer.credit.href}
             target="_blank"

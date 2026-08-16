@@ -51,10 +51,10 @@ export default function Showcase() {
 
         <figcaption className="mt-lg flex flex-wrap items-baseline gap-x-sm gap-y-3xs text-hero-ink">
           <span className="text-base font-medium">{featured.client}</span>
-          <span className="text-sm tabular-nums opacity-80">
+          <span className="text-sm tabular-nums opacity-90">
             {featured.year}
           </span>
-          <span className="w-full text-sm opacity-80">{featured.role}</span>
+          <span className="w-full text-sm opacity-90">{featured.role}</span>
         </figcaption>
       </figure>
     </section>
