@@ -1,11 +1,9 @@
 {
+  "invitation": "I'm excited to hear from you",
+  "email": "",
+  "fallback": { "label": "Tell me what you're building", "href": "#contact" },
   "tagline": "Storefront design for brands that would rather be finished than admired.",
-  "links": [
-    { "label": "Work", "href": "#work" },
-    { "label": "Services", "href": "#services" },
-    { "label": "Writing", "href": "#writing" },
-    { "label": "Contact", "href": "#contact" }
-  ],
   "social": [],
-  "colophon": "Set in Cormorant Garamond and Geist."
+  "colophon": "Set in Geist and Cormorant Garamond.",
+  "backToTopLabel": "Back to top"
 }
