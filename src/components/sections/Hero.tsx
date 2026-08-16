@@ -59,8 +59,8 @@ export default function Hero() {
 
       {/* `--color-hero` (#e92869) is used here and on the menu overlay, and
           nowhere else. The showcase mount and the footer band take
-          `--color-hero-deep` — same hue, darker — because both carry running
-          text this pink cannot support.
+          `--color-accent` — same hue, slightly darker — because both carry
+          running text this pink cannot support.
 
           Paper type on it measures 3.83:1, so the headline and cue inside the
           panel are under AA. That is a known, accepted trade for the fold;
