@@ -30,7 +30,7 @@ export default function Contact() {
   const hintId = (name: string) => `${id}-${name}-hint`;
 
   return (
-    <section id="contact" className="px-gutter pt-3xl pb-3xl">
+    <section id="contact" className="bg-paper-2 px-gutter pb-3xl pt-3xl">
       <div className="grid gap-xl lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-2xl">
         <div>
           <h2 className="max-w-[16ch] font-display text-2xl font-semibold leading-[1.08] tracking-[-0.02em] text-ink [overflow-wrap:anywhere] min-w-0 sm:text-3xl">

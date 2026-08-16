@@ -6,21 +6,26 @@ import type { CtaContent } from "@/types/content";
 const cta: CtaContent = ctaContent;
 
 /**
- * Closing CTA on an ink band — the first dark surface since the hero, which
- * bookends the page before the footer. Left-biased, not centred.
+ * C3 · Typographic link closer.
  *
- * The band inverts its own text colour rather than relying on inheritance, so
- * nothing here can end up ink-on-ink.
+ * This was a filled button on a full ink band. The ink now belongs to the
+ * quotes — one dark surface per page, not two — and a boxed CTA repeated three
+ * inches above the contact form is the closing-sales-band shape that made the
+ * page read as a studio's landing page.
+ *
+ * What is left is a line of type and a link, leading straight into the form
+ * below it rather than interrupting the page to ask again.
  */
 export default function Cta() {
   return (
-    <section className="bg-ink px-gutter pt-3xl pb-4xl text-paper">
-      <p className="max-w-[20ch] font-display text-2xl font-semibold leading-[1.1] tracking-[-0.02em] text-paper [overflow-wrap:anywhere] min-w-0 sm:text-3xl">
+    <section className="px-gutter pb-2xl pt-4xl">
+      <p className="min-w-0 max-w-[20ch] font-display text-3xl font-semibold leading-[1.05] tracking-[-0.02em] text-ink [overflow-wrap:anywhere] sm:text-4xl">
         {cta.line}
       </p>
 
-      <Link href={cta.button.href} className="button-primary mt-xl">
-        {cta.button.label}&nbsp;→
+      <Link href={cta.button.href} className="link-typographic mt-xl">
+        <span>{cta.button.label}</span>
+        <span aria-hidden="true">↓</span>
       </Link>
     </section>
   );
