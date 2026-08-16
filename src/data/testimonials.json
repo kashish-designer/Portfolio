@@ -1,5 +1,8 @@
 {
-  "heading": "What clients say",
+  "heading": "Clients feedback",
+  "lede": "What the people on the other side of the handoff said afterwards.",
+  "previousLabel": "Previous testimonial",
+  "nextLabel": "Next testimonial",
   "testimonials": [
     {
       "quote": "She rebuilt our product page around the one question customers kept emailing us about. The emails stopped.",
