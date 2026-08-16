@@ -45,12 +45,14 @@ export default function Hero() {
         ) : null}
       </div>
 
-      <h1 className="poster-name px-gutter text-paper">{site.name}</h1>
+      {/* Rose type on the paper. The panel below butts up against its
+          baseline, which is the fold the reference is built around. */}
+      <h1 className="poster-name px-gutter text-rose">{site.name}</h1>
 
-      {/* No bottom padding: the portrait runs to the panel's edge, the way the
-          reference fold does. The side columns carry their own. */}
-      <div className="poster-panel bg-rose px-gutter">
-        <div className="grid items-end gap-lg lg:grid-cols-12 lg:gap-2xl">
+      {/* Inset by the gutter so its edges line up with the name above it. No
+          bottom padding — the portrait runs to the panel's bottom edge. */}
+      <div className="poster-panel bg-rose">
+        <div className="grid items-end gap-lg px-lg pt-2xl lg:grid-cols-12 lg:gap-2xl">
           <p className="min-w-0 max-w-[22ch] text-md leading-[1.35] text-rose-ink lg:col-span-3 lg:pb-3xl">
             {hero.headline}
           </p>

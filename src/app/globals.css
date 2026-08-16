@@ -128,25 +128,16 @@ body::before {
   cursor: not-allowed;
 }
 
-/* Poster name + the panel that reveals it.
+/* Poster name — rose type on the paper, with the panel butting up to its
+   baseline.
 
-   The name is paper-on-paper and therefore invisible against the page; the
-   rose panel is pulled up over its lower portion and the name stacks above it,
-   so only the crossing part reads. Both offsets are computed from
-   `--text-poster`, so changing the type size moves the panel with it — the two
-   cannot drift apart the way two hand-tuned numbers would.
-
-   The panel rides up 0.55em, which leaves roughly the top third of the cap
-   height above its edge. Less overlap and the name reads as merely
-   bottom-cropped; more and the letters lose their shoulders and stop being
-   readable at all.
-
-   The panel's top padding repays the same distance, so its content starts
-   below the name instead of colliding with it — one constant, two uses, which
-   is why they are computed rather than typed twice. */
+   Established by sampling the reference rather than by eye, after two wrong
+   readings. Mapping its pixels shows three bands: green letterforms on white
+   page from y=168 to y=256, then solid green across the full width from
+   y=260. So the name is coloured type on the paper and the panel's top edge
+   lands on the name's baseline. It is not knocked out of the panel, and it is
+   not split into two tones. */
 .poster-name {
-  position: relative;
-  z-index: var(--z-raised);
   margin: 0;
   font-family: var(--font-poster);
   font-size: var(--text-poster);
@@ -162,19 +153,29 @@ body::before {
      failure mode a harmless clip against the section's own overflow instead.
      Safe because this renders one short word, never a sentence. */
   white-space: nowrap;
-  /* Letter-spacing is applied after the last glyph too, which leaves a gap the
-     width of the tracking at the right edge and stops the name from sitting
-     flush. Reclaim exactly that much. */
-  margin-right: -0.045em;
+  /* Centred rather than flush-left. Below ~1466px the clamp on --text-poster
+     has not capped yet, the name fills the measure, and centring is a no-op.
+     Past that the type size stops growing, the name no longer reaches the
+     right edge, and without this it strands to the left on wide monitors.
+     Doing it this way needs no breakpoint and no second copy of the clamp
+     maths that could drift out of sync with the token. */
+  text-align: center;
 }
 
-.poster-panel {
-  --poster-overlap: calc(var(--text-poster) * 0.55);
+/* The rose panel.
 
-  position: relative;
-  z-index: var(--z-base);
-  margin-top: calc(var(--poster-overlap) * -1);
-  padding-top: calc(var(--poster-overlap) + var(--spacing-xl));
+   Measured off the reference (617px render): the panel is inset 23px on both
+   sides — 3.7% of the page, i.e. the gutter — and is NOT full-bleed. The name
+   runs x=23..593 against a panel of x=23..594, so name and panel share their
+   left and right edges exactly.
+
+   The panel's top edge sits on the name's baseline. Because line-height is
+   0.82 the line box still reserves space below the baseline, so the panel is
+   pulled up by that remainder — as a fraction of the type size, so it holds at
+   every viewport. */
+.poster-panel {
+  margin-inline: var(--spacing-gutter);
+  margin-top: calc(var(--text-poster) * -0.1);
 }
 
 /* Section heading in the poster voice. Every section head on the page uses
