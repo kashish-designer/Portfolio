@@ -26,7 +26,7 @@ export default function Footer() {
   const hasEmail = Boolean(footer.email);
 
   return (
-    <footer className="relative overflow-hidden bg-hero-deep pt-4xl text-hero-ink">
+    <footer className="relative overflow-hidden bg-accent pt-4xl text-accent-ink">
       <div className="grid gap-2xl px-gutter lg:grid-cols-12">
         <div className="min-w-0 lg:col-span-7">
           <p className="text-sm opacity-90">{footer.invitation}</p>
@@ -95,11 +95,11 @@ export default function Footer() {
 
       {/* Rule sits inside the gutter so it lines up with the page's other
           hairlines rather than running edge to edge. */}
-      <div className="mx-gutter mt-lg border-t border-hero-rule">
+      <div className="mx-gutter mt-lg border-t border-accent-rule">
         {/* Words are separate elements so the symbol can carry its own
             accessible name, which means the spaces between them come from the
             gap rather than from the text. */}
-        <p className="flex flex-wrap items-center justify-center gap-x-xs pb-lg pt-sm text-center text-sm text-hero-ink">
+        <p className="flex flex-wrap items-center justify-center gap-x-xs pb-lg pt-sm text-center text-sm text-accent-ink">
           <span className="opacity-90">{footer.credit.prefix}</span>
           <span role="img" aria-label={footer.credit.symbolLabel}>
             {footer.credit.symbol}

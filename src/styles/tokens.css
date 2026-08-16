@@ -21,16 +21,15 @@
      and the near-black ink is the anchor that stops the page going sweet.
 
      Every saturated value shares hue 8.3, at three lightnesses:
-       --color-hero       61%  the fold and the menu overlay
-       --color-hero-deep  52%  bands that carry running text
-       --color-accent     50%  links, focus, the submit button
+       --color-hero    61%  the fold and the menu overlay, and nothing else
+       --color-accent  55%  every other pink: bands, links, button, focus
      They read as one colour at different depths. Earlier passes ran a mauve
      at hue 16 next to a pink at hue 12, which read as a near-miss rather than
      a decision.
 
      Contrast is computed (OKLCH → linear sRGB → WCAG), never eyeballed. Two
      pairs are known to miss and are recorded where they live: `--color-muted`
-     on `--color-paper-3` (4.07:1), and paper type on `--color-hero` (3.83:1).
+     on `--color-paper-3` (4.07:1), and paper type on `--color-hero` (3.83:1). */
 
   --color-paper: oklch(96.8% 0.014 28); /* page ground — warm blush-white */
   --color-paper-2: oklch(94% 0.022 26); /* raised surface — almond */
@@ -44,61 +43,54 @@
   --color-muted: oklch(52% 0.024 20); /* taupe-rose — UI boundaries */
   --color-neutral: oklch(70% 0.026 22); /* tints, surfaces */
 
-  /* Text on either pink band. */
-  --color-hero-ink: oklch(96.8% 0.014 28);
+  /* Hero fold surface — #e92869, and the ONLY thing that uses it: the fold
+     panel, the name above it, and the menu overlay. Nothing else can have it.
 
-  /* Deep step of the same hue, for bands that carry running text. #e92869
-     cannot: paper on it is only 3.83:1.
+     Paper type measures 3.83:1 here, under the 4.5:1 small text needs. That
+     is tolerable on the fold, where only poster-scale type sits (large text
+     passes at 3:1), and on the overlay, whose links are poster-scale too. It
+     rules the colour out for every other job on the page: as a band it would
+     fail the running text on it, as link text it would fail on paper, and as
+     the submit button's fill it would fail its own label.
 
-     Held as close to the fold as contrast allows — 55% against the fold's
-     61%, so the two bands read as the same pink rather than two. Paper text
-     lands at 4.91:1 here, just over the line, which is why secondary copy on
-     these bands runs at `opacity-90` (4.52:1) and not the `opacity-80` used
-     on paper surfaces: 80% would drop it to 4.13:1 and fail. Going darker
-     would buy headroom at the cost of the match.
+     Darkening to `--color-accent` below is the fix if the fold's headline and
+     cue should pass AA.
 
-     Sharing hue 8.3 with `--color-hero` is the point — the page previously
-     ran two unrelated pinks (this slot was oklch(52% 0.065 16), a low-chroma
-     mauve at hue 16). Two lightness steps of one hue read as one colour;
-     two hues read as a mistake. */
-  --color-hero-deep: oklch(55% 0.2 8.3);
-
-  /* Hairline on the deep band. Spelled out as its own value rather than
-     `hero-ink` at an opacity: Tailwind's opacity modifier compiles to a
-     color-mix() whose argument is a var(), and Lightning CSS drops exactly
-     that, silently leaving no rule at all. */
-  --color-hero-rule: oklch(63% 0.18 8.3);
-
-  /* Hero fold surface — #e92869. Brighter and more saturated than anything
-     else in the palette, and used only on the fold: the panel, the name above
-     it, and nothing else.
-
-     CONTRAST: paper type measures 3.83:1 here, under the 4.5:1 that the
-     panel's headline (20px) and scroll cue (10px caps) need. The name itself
-     is fine — poster scale counts as large text, where 3:1 is the bar.
-     Darkening to oklch(55% 0.2 8.3) (~#c8285b) reaches 4.91:1 and keeps the
-     hue, if the panel copy should pass AA.
-
-     Previous values, kept in case this needs to go back:
-       oklch(50% 0.16 12)   #aa2e4a  same as --color-accent, paper 5.95:1
-       oklch(52% 0.065 16)  #895a5c  the muted --color-rose, paper 5.17:1 */
+     Previous fold values, kept in case this needs to go back:
+       oklch(50% 0.16 12)   #aa2e4a  paper 5.95:1
+       oklch(52% 0.065 16)  #895a5c  the old muted rose, paper 5.17:1 */
   --color-hero: oklch(61.3% 0.225 8.3);
 
-  /* Accent, realigned to hue 8.3 so every pink on the page shares one hue. It
-     was oklch(50% 0.16 12), close enough to read as a near-miss against the
-     fold rather than a deliberate second colour.
+  /* Accent — every other pink on the page. One token, not three: the footer
+     band, the showcase mount, links, the submit button, the quote marks, the
+     focus ring and the form's error state all take this, so they cannot drift
+     apart. It sat at three separate values before, which is how the page ended
+     up looking like it had several pinks.
 
-     It stays much darker than `--color-hero` on purpose: this one carries
-     link text, the submit button, and the focus ring, all of which need
-     4.5:1 on paper. The fold's brighter pink manages only 3.83:1 and could
-     not do this job.
+     Held at 55% — as close to the fold's 61% as contrast permits, so the bands
+     read as the same colour rather than a darker relative. Every pair was
+     computed, and the tight ones are why it cannot go lighter:
 
-     Chroma is capped by the sRGB gamut at these lightnesses — 0.2 clips on
-     the hover and focus steps, hence 0.17 and 0.19. */
-  --color-accent: oklch(50% 0.2 8.3); /* paper 6.09:1 · blush 4.90:1 */
-  --color-accent-strong: oklch(43% 0.17 8.3); /* hover/active — paper 8.08:1 */
-  --color-accent-ink: oklch(96.8% 0.014 28); /* text on accent fill */
-  --color-focus: oklch(48% 0.19 8.3); /* focus ring only — paper 6.60:1 */
+       link / quote-mark text on paper     4.91:1
+       error text on paper-2 (the form)    4.51:1  <- tightest
+       paper label on the button fill      4.91:1
+       band copy at opacity-90             4.52:1
+
+     Secondary copy on the pink bands runs at `opacity-90`, not the
+     `opacity-80` used on paper: 80% would land at 4.13:1 and fail.
+
+     Chroma is capped by the sRGB gamut at the darker steps — 0.2 clips there,
+     hence 0.18. */
+  --color-accent: oklch(55% 0.2 8.3);
+  --color-accent-strong: oklch(46% 0.18 8.3); /* hover/active — paper 7.15:1 */
+  --color-accent-ink: oklch(96.8% 0.014 28); /* text on any pink fill */
+  --color-focus: oklch(50% 0.2 8.3); /* focus ring only — paper 6.09:1 */
+
+  /* Hairline on the pink bands. Spelled out as its own value rather than
+     `accent-ink` at an opacity: Tailwind's opacity modifier compiles to a
+     color-mix() whose argument is a var(), and Lightning CSS drops exactly
+     that, silently leaving no rule at all. */
+  --color-accent-rule: oklch(66% 0.17 8.3);
 
   /* ---- Type ---------------------------------------------------------------
      Two families, three roles. There is no serif: Cormorant Garamond was the

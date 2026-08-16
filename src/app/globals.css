@@ -210,7 +210,7 @@ body::before {
   font-weight: 800;
   line-height: 1.05;
   letter-spacing: -0.035em;
-  color: var(--color-hero-ink);
+  color: var(--color-accent-ink);
   overflow-wrap: anywhere;
   border-bottom: var(--rule-thick) solid transparent;
   outline: 2px solid transparent;
@@ -219,12 +219,12 @@ body::before {
 }
 
 .footer-contact:hover {
-  border-bottom-color: var(--color-hero-ink);
+  border-bottom-color: var(--color-accent-ink);
 }
 
 /* Focus rings appear instantly — never transitioned. */
 .footer-contact:focus-visible {
-  outline-color: var(--color-hero-ink);
+  outline-color: var(--color-accent-ink);
 }
 
 .footer-contact:active {
@@ -237,7 +237,7 @@ body::before {
   display: inline-flex;
   align-items: center;
   min-height: 2.75rem;
-  color: var(--color-hero-ink);
+  color: var(--color-accent-ink);
   text-decoration: underline;
   text-decoration-color: transparent;
   text-decoration-thickness: var(--rule-hair);
@@ -252,7 +252,7 @@ body::before {
 }
 
 .footer-link:focus-visible {
-  outline-color: var(--color-hero-ink);
+  outline-color: var(--color-accent-ink);
 }
 
 .footer-link:active {
@@ -268,9 +268,9 @@ body::before {
   width: 3.5rem;
   height: 3.5rem;
   flex: none;
-  border: var(--rule-hair) solid var(--color-hero-ink);
+  border: var(--rule-hair) solid var(--color-accent-ink);
   border-radius: 50%;
-  color: var(--color-hero-ink);
+  color: var(--color-accent-ink);
   outline: 2px solid transparent;
   outline-offset: 3px;
   transition:
@@ -279,12 +279,12 @@ body::before {
 }
 
 .back-to-top:hover {
-  background-color: var(--color-hero-ink);
+  background-color: var(--color-accent-ink);
   color: var(--color-hero);
 }
 
 .back-to-top:focus-visible {
-  outline-color: var(--color-hero-ink);
+  outline-color: var(--color-accent-ink);
 }
 
 .back-to-top:active {
@@ -307,7 +307,7 @@ body::before {
   font-weight: 800;
   line-height: 0.82;
   letter-spacing: -0.045em;
-  color: var(--color-hero-ink);
+  color: var(--color-accent-ink);
   white-space: nowrap;
   text-align: right;
 }
@@ -473,7 +473,7 @@ body::before {
 [open] > .service-summary .service-marker {
   border-color: var(--color-hero);
   background-color: var(--color-hero);
-  color: var(--color-hero-ink);
+  color: var(--color-accent-ink);
 }
 
 [open] > .service-summary .service-marker::before {
@@ -534,8 +534,8 @@ body::before {
 }
 
 .menu-toggle[data-open="true"] {
-  border-color: var(--color-hero-ink);
-  color: var(--color-hero-ink);
+  border-color: var(--color-accent-ink);
+  color: var(--color-accent-ink);
 }
 
 .menu-toggle[data-open="true"] .menu-toggle__bars {
@@ -562,7 +562,7 @@ body::before {
 }
 
 .menu-toggle[data-open="true"]:focus-visible {
-  outline-color: var(--color-hero-ink);
+  outline-color: var(--color-accent-ink);
 }
 
 .menu-toggle:active {
@@ -586,7 +586,7 @@ body::before {
   font-weight: 800;
   line-height: 1.05;
   letter-spacing: -0.035em;
-  color: var(--color-hero-ink);
+  color: var(--color-accent-ink);
   outline: 2px solid transparent;
   outline-offset: 4px;
   overflow-wrap: anywhere;
@@ -598,7 +598,7 @@ body::before {
 }
 
 .menu-link:focus-visible {
-  outline-color: var(--color-hero-ink);
+  outline-color: var(--color-accent-ink);
 }
 
 .menu-link:active {
@@ -660,14 +660,19 @@ body::before {
   color: var(--color-accent);
 }
 
-/* Selection is charcoal, not pink.
-   It used to be `--color-accent`, which read as yet another pink competing
-   with the fold — and on the pink bands it was pink-on-pink, so a selection
-   was barely visible. Ink works on every surface the page has: 16.8:1 against
-   paper, and it is the one value that never collides with the fold. */
+/* Selection is the blush tint — light, on every surface.
+
+   Two rejected options, both tried: accent pink was invisible on the pink
+   bands (pink on pink), and ink turned every selected heading into a heavy
+   black slab, since the headings are ink themselves.
+
+   A light selection avoids both. It reads against the pink bands and against
+   paper, and selecting a heading tints it rather than blacking it out. Ink
+   text on it measures 13.6:1. This also gives `--color-paper-3` a job again;
+   it had no user left once Credentials moved off the blush band. */
 ::selection {
-  background-color: var(--color-ink);
-  color: var(--color-paper);
+  background-color: var(--color-paper-3);
+  color: var(--color-ink);
 }
 
 /* Focus rings appear instantly — never transitioned, never animated. */
